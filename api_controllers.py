@@ -1,7 +1,7 @@
 from models import Product, Offer, Provider, db
 import os
 from flask import abort
-import uuid
+import time
 
 INPUT_FOLDER = 'tmp/'
 # GET controllers
@@ -65,6 +65,15 @@ def create_offer(line):
     db.session.add(offer)
     db.session.commit()
 
+def handle_file(filename):
+    with open(filename, 'r') as file:
+        file.readline()
+        try:
+            for line in file.readlines():
+                product_id = create_offer(line)
+        except Exception as error:
+            return str(error)
+
 
 def update_data(request):
     file = request.files.get('file')
@@ -72,7 +81,7 @@ def update_data(request):
     if not file:
         return abort(400)
 
-    filename = INPUT_FOLDER + str(uuid.uuid4()) + '_' + file.filename
+    filename = INPUT_FOLDER + str(time.time()) + '_' + file.filename
     file.save(filename)
 
     offers = Offer.query.all()
@@ -80,10 +89,4 @@ def update_data(request):
         db.session.delete(offer)
     db.session.commit()
 
-    with open(filename, 'r') as file:
-        file.readline()
-        try:        
-            for line in file.readlines():
-                product_id = create_offer(line)
-        except Exception as error:
-            return str(error)
+    return handle_file(filename)

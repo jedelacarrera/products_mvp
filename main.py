@@ -1,6 +1,6 @@
 import os
 import uuid
-from flask import Flask, jsonify, request, redirect, render_template, redirect, url_for
+from flask import Flask, jsonify, request, redirect, render_template, redirect, url_for, send_from_directory
 
 app = Flask(__name__)
 
@@ -40,3 +40,8 @@ def update_data():
     success = request.args.get('ok') is not None
     error = request.args.get('error')
     return render_template('data.html', success=success, error=error)
+
+@app.route('/data.csv', methods=['GET'])
+def api_search_result():
+    filename = os.listdir('tmp')[-1]
+    return send_from_directory('tmp', filename)

@@ -58,6 +58,12 @@
 		.navbar-brand {
 			font-weight: bold;
 		}
+
+		@media (max-width: 1024px) {
+			.container {
+				max-width: none;
+			}
+		}
 	</style>
 </head>
 <body>
@@ -70,25 +76,22 @@
 	  </form>
 	</nav>
 	<div class="container">
-		<div class="row">
+		<div class="row card-group">
 		{% for product in products %}
-			<div class="col-sm-4">
-				<a href="/products/{{product.id}}" class="a-card">
-					<div class="card">
+			<div class="row col-sm-4">
+				<div class="card">
+					<a href="/products/{{product.id}}" class="a-card">
 					  <img class="card-img-top" src="{{product.url}}" alt="Product image" width="100px">
 					  <div class="card-body">
 					    <h3 class="card-title">{{ product.description }}</h3>
 					    <p class="card-text">{{ product.best_price }}</p>
 					  </div>
-					</div>
-				</a>
+					</a>
+				</div>
 			</div>
 		{% endfor %}
 		</div>
 	</div>
-	<script type="text/javascript">
-	</script>
-
 </body>
 </html>
 

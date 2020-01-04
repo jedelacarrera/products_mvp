@@ -17,6 +17,7 @@ venv.bak/
 
 *.csv
 *.xls
+!00_seed.csv
 
 web-scrapper/results/*.html
 tmp/results/*.html
