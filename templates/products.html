@@ -3,8 +3,8 @@
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<title>Búsqueda de perfiles de facebook</title>
-	<link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='favicon.ico') }}"/>
+	<title>Mejores precios</title>
+	<link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='index.jpeg') }}"/>
 	<style>
 		html {
 		    font-family: -apple-system,BlinkMacSystemFont,“Segoe UI”,Roboto,Oxygen-Sans,Ubuntu,Cantarell,“Helvetica Neue”,sans-serif;
@@ -54,11 +54,16 @@
 			font-size: 1.25rem;
 			font-weight: 501;
 		}
+
+		.navbar-brand {
+			font-weight: bold;
+		}
 	</style>
 </head>
 <body>
-	<nav class="navbar navbar-dark bg-primary justify-content-between">
+	<nav class="navbar navbar-dark bg-primary">
   	  <a class="navbar-brand" href='/products/'>Mis productos</a>
+	  <a class="nav-item nav-link active" href="/data/">Actualizar datos</a>
 	  <form class="form-inline" action="/products/" method="get">
 	    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" value="{{search}}" autofocus>
 	    <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>

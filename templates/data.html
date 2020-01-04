@@ -3,10 +3,13 @@
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<title>Búsqueda de perfiles de facebook</title>
-	<link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='favicon.ico') }}"/>
+	<title>Mejores precios</title>
+	<link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='index.jpeg') }}"/>
 </head>
 <body>
+	<nav class="navbar navbar-dark bg-primary">
+  	  <a class="navbar-brand" href='/products/'>Mis productos</a>
+	</nav>
 	<div class="container" style="margin-top: 50px">
 		{% if success %}
 			<div class="alert alert-success" role="alert">
