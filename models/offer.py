@@ -5,9 +5,10 @@ class Offer(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
     provider_id = db.Column(db.Integer, db.ForeignKey('provider.id'), nullable=False)
     price = db.Column(db.Float, nullable=True)  # Precio
-    discount_price = db.Column(db.Float, nullable=True)  # Precio con descuento
-    promotion_price = db.Column(db.Float, nullable=True)  # Precio con promocion
-    description = db.Column(db.Text, unique=False, nullable=True)
+    sale_price = db.Column(db.Float, nullable=True)  # Precio con descuento
+    pack_price = db.Column(db.Text, nullable=True)  # Precio con promocion, texto
+    comment = db.Column(db.Text, unique=False, nullable=True)
+    source = db.Column(db.Text, unique=False, nullable=True)
 
     @property
     def dict(self):
@@ -16,9 +17,10 @@ class Offer(db.Model):
             "product_id": self.product_id,
             "provider": self.provider.dict,
             "price": self.price,
-            "discount_price": self.discount_price,
-            "promotion_price": self.promotion_price,
-            "description": self.description,
+            "sale_price": self.sale_price,
+            "pack_price": self.pack_price,
+            "comment": self.comment,
+            "source": self.source,
         }
 
     def __repr__(self):

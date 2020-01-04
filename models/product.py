@@ -2,36 +2,53 @@ from dbconfig import db
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=False, nullable=True)
     code = db.Column(db.String(120), unique=False, nullable=True)
-    tags = db.Column(db.Text, unique=False, nullable=True)
+    brand = db.Column(db.String(120), unique=False, nullable=True)
+    description = db.Column(db.String(120), unique=False, nullable=True)
+    complete_description = db.Column(db.String(120), unique=False, nullable=True)
+    quantity = db.Column(db.String(120), unique=False, nullable=True)
+    category = db.Column(db.String(120), unique=False, nullable=True)
+    subcategory = db.Column(db.String(120), unique=False, nullable=True)
     url = db.Column(db.Text, unique=False, nullable=True)
 
     offers = db.relationship('Offer', backref='product', lazy=True, cascade = "all,delete")
 
+    MAX_PRICE = 1000000000
+
     @property
     def best_price(self):
-        best = 1000000000
+        best = Product.MAX_PRICE
+        pack = ''
         for offer in self.offers:
-            best = min(best, offer.price)
-            if offer.discount_price is not None:
-                best = min(best, offer.discount_price)
-        return int(best // 1)
+            if offer.price:
+                best = min(best, offer.price)
+            if offer.sale_price is not None:
+                best = min(best, offer.sale_price)
+
+        if best == Product.MAX_PRICE:
+            return offer.pack_price
+        return '$ ' + str(int(best // 1))
 
     @property
     def dict(self):
         return {
             "id": self.id,
-            "name": self.name,
             "code": self.code,
-            "tags": self.tags,
+            "brand": self.brand,
+            "description": self.description,
+            "complete_description": self.complete_description,
+            "quantity": self.quantity,
+            "category": self.category,
+            "subcategory": self.subcategory,
             "url": self.url,
             "best_price": self.best_price,
         }
 
     @property
     def similar_products(self):
-        return Product.query.filter_by(tags=self.tags)
+        if not self.category:
+            return []
+        return Product.query.filter_by(category=self.category).all()
 
     def __repr__(self):
-        return '<Product {id}: {name}>'.format(self.__dict__)
+        return '<Product {id}: {description}>'.format(self.__dict__)

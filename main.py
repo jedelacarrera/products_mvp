@@ -15,11 +15,12 @@ def index():
 
 @app.route('/products/', methods=['GET'])
 def products():
-    products = api_controllers.get_products(search=request.args.get('search'))
+    search = request.args.get('search', '')
+    products = api_controllers.get_products(search=search)
     if request.headers.get('Content-Type') == 'application/json':
         return jsonify(products)
 
-    return render_template('products.html', products=products['products'])
+    return render_template('products.html', products=products['products'], search=search)
 
 @app.route('/products/<pid>/', methods=['GET'])
 def product(pid):
@@ -27,3 +28,15 @@ def product(pid):
     if request.headers.get('Content-Type') == 'application/json':
         return jsonify(result)
     return render_template('product.html', product=result['product'], offers=result['offers'])
+
+@app.route('/data/', methods=['GET', 'POST'])
+def update_data():
+    if request.method == 'POST':
+        error = api_controllers.update_data(request)
+        if error:
+            return redirect(url_for('update_data', error=error))
+        return redirect(url_for('update_data', ok=True))
+
+    success = request.args.get('ok') is not None
+    error = request.args.get('error')
+    return render_template('data.html', success=success, error=error)

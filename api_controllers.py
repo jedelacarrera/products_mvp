@@ -1,15 +1,14 @@
 from models import Product, Offer, Provider, db
 import os
 from flask import abort
+import uuid
 
+INPUT_FOLDER = 'tmp/'
 # GET controllers
 
 def get_products(search=''):
-    if search:
-        products = Product.query.filter(Product.name.ilike('%' + search + '%'))
-    else:
-        products = Product.query.all()
-    return {"products": [product.dict for product in products]}
+    products = Product.query.filter(Product.description.ilike('%' + search + '%')).order_by(Product.category, Product.description).all()
+    return {"products": [product.dict for product in products if len(product.offers) > 0]}
 
 def get_offers_by_product(pid):
     product = Product.query.filter_by(id=pid).first()
@@ -18,7 +17,73 @@ def get_offers_by_product(pid):
     return {
         "offers": [offer.dict for offer in product.offers],
         "product": product.dict,
+        "similar_products": [prod.dict for prod in product.similar_products]
     }
 
 def get_providers():
     return {"providers": [provider.dict for provider in Provider.query.all()]}
+
+def get_product_id(line):
+    # Código, Marca, Descripción, Proveedor, Fuente, Peso, Descripción Completa, Categoría, Subcategoría, Observación, Precio Normal, Precio Oferta, Precio Pack, URL Foto Producto.
+    splitted_line = line.split(';')
+    product = Product.query.filter_by(code=splitted_line[0]).first()
+    if product:
+        return product.id
+
+    product = Product(
+        code=splitted_line[0],
+        brand=splitted_line[1],
+        description=splitted_line[2],
+        # Skip 3, 4
+        quantity=splitted_line[5],
+        complete_description=splitted_line[6],
+        category=splitted_line[7],
+        subcategory=splitted_line[8],
+        # Skip 9, 10, 11, 12
+        url=splitted_line[13],
+    )
+    db.session.add(product)
+    db.session.commit()
+    return product.id
+
+def create_offer(line):
+    product_id = get_product_id(line)
+
+    splitted_line = line.split(';')
+    provider_id = Provider.query.filter_by(name=splitted_line[3]).first().id,
+
+    offer = Offer(
+        product_id=product_id,
+        provider_id=provider_id,
+        source=splitted_line[4] or None,
+        comment=splitted_line[9] or None,
+        price=splitted_line[10].replace('$', '') or None,
+        sale_price=splitted_line[11].replace('$', '') or None,
+        pack_price=splitted_line[12] or None,
+    )
+
+    db.session.add(offer)
+    db.session.commit()
+
+
+def update_data(request):
+    file = request.files.get('file')
+
+    if not file:
+        return abort(400)
+
+    filename = INPUT_FOLDER + str(uuid.uuid4()) + '_' + file.filename
+    file.save(filename)
+
+    offers = Offer.query.all()
+    for offer in offers:
+        db.session.delete(offer)
+    db.session.commit()
+
+    with open(filename, 'r') as file:
+        file.readline()
+        try:        
+            for line in file.readlines():
+                product_id = create_offer(line)
+        except Exception as error:
+            return str(error)

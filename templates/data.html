@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<title>Búsqueda de perfiles de facebook</title>
+	<link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='favicon.ico') }}"/>
+</head>
+<body>
+	<div class="container" style="margin-top: 50px">
+		{% if success %}
+			<div class="alert alert-success" role="alert">
+	  			Actualizado correctamente
+			</div>
+		{% endif %}
+		{% if error %}
+			<div class="alert alert-warning" role="alert">
+	  			Hubo un error: {{error}}
+			</div>
+		{% endif %}
+		<form class="row" action="/data/" method="post" enctype="multipart/form-data">
+			<div class="col-md-5">
+				<div class="custom-file">
+					<input type="file" class="custom-file-input" name="file" id="input-file" required>
+					<label class="custom-file-label" for="input-file">Seleccionar archivo...</label>
+					<small class="form-text text-muted">Solo Archivo csv</small>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<button type="submit" class="btn btn-primary">Enviar</button>
+			</div>
+		</form>
+		<div>
+			<h2>Requerimientos</h2>
+			<p>Archivo CSV, archivo de texto plano en que los valores se separen por ";". En excel se puede exportar a CSV facilmente.</p>
+			<p>La primera linea debe contener los encabezados. Deben ser los siguientes en el orden correcto.</p>
+			<p>Código, Marca, Descripción, Proveedor, Fuente, Peso, Descripción Completa, Categoría, Subcategoría, Observación, Precio Normal, Precio Oferta, Precio Pack, URL Foto Producto.</p>
+			<p>No se revisa el nombre de los encabezados, pero ese debe ser el orden.</p>
+			<p>Si no existe un producto con el codigo indicado, se crea uno. Si es que ya existe no se actualiza su informacion.</p>
+			<p>En Proveedor se permite solo los siguientes (tener cuidado con equivocarse, arrojará un error si es que hay uno):</p>
+			<ul>
+				<li>Walmart</li>
+				<li>Alvi</li>
+				<li>Central Mayorista</li>
+				<li>La Caserita</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
+

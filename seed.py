@@ -2,10 +2,10 @@ from api_controllers import db
 from models import Product, Provider, Offer
 
 def create_providers():
-    prov1 = Provider(name='Yolito')
-    prov2 = Provider(name='Sodimac')
-    prov3 = Provider(name='Easy')
-    prov4 = Provider(name='Construmart')
+    prov1 = Provider(name='Central Mayorista', url='central_mayorista.jpeg')
+    prov2 = Provider(name='Walmart', url='walmart.jpeg')
+    prov3 = Provider(name='La Caserita', url='la_caserita.jpeg')
+    prov4 = Provider(name='Alvi', url='alvi.jpeg')
 
     providers = [prov1, prov2, prov3, prov4]
 
@@ -139,9 +139,9 @@ def create_offers(providers, products):
 def seed_all():
     db.drop_all()
     db.create_all()
-    products = create_products()
+    # products = create_products()
     providers = create_providers()
-    quotations = create_offers(providers, products)
+    # quotations = create_offers(providers, products)
 
 if __name__ == '__main__':
     seed_all()
