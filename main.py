@@ -43,5 +43,5 @@ def update_data():
 
 @app.route('/data.csv', methods=['GET'])
 def api_search_result():
-    filename = os.listdir('tmp')[-1]
+    filename = sorted(os.listdir('tmp'))[-1]
     return send_from_directory('tmp', filename)
