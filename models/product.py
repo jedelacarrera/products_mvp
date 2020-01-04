@@ -19,15 +19,22 @@ class Product(db.Model):
     def best_price(self):
         best = Product.MAX_PRICE
         pack = ''
+        prices = []
+        providers = []
         for offer in self.offers:
             if offer.price:
-                best = min(best, offer.price)
-            if offer.sale_price is not None:
-                best = min(best, offer.sale_price)
+                prices.append(offer.price)
+                providers.append(offer.provider)
+            if offer.sale_price:
+                prices.append(offer.sale_price)
+                providers.append(offer.provider)
+        if len(prices) == 0:
+            return None
 
-        if best == Product.MAX_PRICE:
-            return offer.pack_price
-        return '$ ' + str(int(best // 1))
+        best = min(prices)
+        provider = providers[prices.index(best)]
+
+        return {'price': '$ ' + str(int(best // 1)), 'provider': provider.dict}
 
     @property
     def dict(self):
@@ -48,7 +55,10 @@ class Product(db.Model):
     def similar_products(self):
         if not self.category:
             return []
-        return Product.query.filter_by(category=self.category).all()
+        products = Product.query.filter_by(category=self.category).all()
+        products = list(filter(lambda prod: prod.id != self.id, products))
+        return products[:3]
+
 
     def __repr__(self):
         return '<Product {id}: {description}>'.format(self.__dict__)

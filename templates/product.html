@@ -16,19 +16,43 @@
 	    <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
 	  </form>
 	</nav>
+	<div class="container offers">
+		{% for offer in offers %}
+		<div class="offer">
+			<div class="offer-image">
+				<img src="{{ url_for('static', filename=offer.provider.url) }}"/>
+			</div>
+			<div class="offer-content">
+				<div class="offer-brand">
+					<h5 class="offer-name">{{offer.provider.name}}</h5>
+					<p>{{offer.provider.description}}</p>
+				</div>
+				<div class="offer-price">
+					<div class="price-container line-through">
+						<p>Precio lista</p>
+						<p class="price">$ {{offer.price}}</p>
+					</div>
+					<div class="price-container">
+						<p>Precio Oferta</p>
+						<p class="price sale">$ 400</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
 	<div class="container">
+		<h2>Productos similares</h2>
 		<div class="row card-group">
-		{% for product in products %}
+		{% for product in similar_products %}
 			<div class="row col-sm-4">
 				<div class="card">
 					<a href="/products/{{product.id}}" class="a-card">
 					  <img class="card-img-top" src="{{product.url}}" alt="Product image" width="100px">
 					  <div class="card-body">
 					    <h3 class="card-title">{{ product.description }}</h3>
-					    <div class="best-price">
-					    	<p class="card-text price">{{ product.best_price.price }}</p>
-					    	<p class="card-text">{{ product.best_price.provider.name }}</p>					    	
-					    </div>
+					    <p class="card-text price">{{ product.best_price.price }}</p>
+					    <p class="card-text">{{ product.best_price.provider.name }}</p>
 					  </div>
 					</a>
 				</div>

@@ -4,8 +4,8 @@ from models import Provider
 def create_providers():
     prov1 = Provider(name='Central Mayorista', url='central_mayorista.jpeg')
     prov2 = Provider(name='Walmart', url='walmart.jpeg')
-    prov3 = Provider(name='La Caserita', url='la_caserita.jpeg')
-    prov4 = Provider(name='Alvi', url='alvi.jpeg')
+    prov3 = Provider(name='La Caserita', url='la_caserita.jpeg', description='Mayorista online')
+    prov4 = Provider(name='Alvi', url='alvi.jpeg', description='Club Mayorista')
 
     providers = [prov1, prov2, prov3, prov4]
 

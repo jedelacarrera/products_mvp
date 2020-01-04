@@ -25,9 +25,7 @@ def products():
 @app.route('/products/<pid>/', methods=['GET'])
 def product(pid):
     result = api_controllers.get_offers_by_product(pid)
-    if request.headers.get('Content-Type') == 'application/json':
-        return jsonify(result)
-    return render_template('product.html', product=result['product'], offers=result['offers'])
+    return render_template('product.html', product=result['product'], offers=result['offers'], similar_products=result['similar_products'])
 
 @app.route('/data/', methods=['GET', 'POST'])
 def update_data():

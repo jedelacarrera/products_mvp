@@ -8,7 +8,7 @@ INPUT_FOLDER = 'tmp/'
 
 def get_products(search=''):
     products = Product.query.filter(Product.description.ilike('%' + search + '%')).order_by(Product.category, Product.description).all()
-    return {"products": [product.dict for product in products if len(product.offers) > 0]}
+    return {"products": [product.dict for product in products if len(product.offers) > 0 and product.best_price != None]}
 
 def get_offers_by_product(pid):
     product = Product.query.filter_by(id=pid).first()
