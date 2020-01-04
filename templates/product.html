@@ -16,6 +16,21 @@
 	    <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
 	  </form>
 	</nav>
+	<h3>Detalles del producto</h3>
+	<div class="container product-info">
+		<div class="product-image">
+			<img src="{{product.url}}">
+		</div>
+		<div class="product-content">
+			<p>{{product.brand}}</p>
+			<p>{{product.description}}</p>
+			<hr>
+			<p>{{product.complete_description}}</p>
+			<p>{{product.quantity}}</p>
+			<p>{{product.category}}</p>
+		</div>
+	</div>
+	<hr>
 	<div class="container offers">
 		{% for offer in offers %}
 		<div class="offer">
@@ -58,8 +73,10 @@
 					  <img class="card-img-top" src="{{product.url}}" alt="Product image" width="100px">
 					  <div class="card-body">
 					    <h3 class="card-title">{{ product.description }}</h3>
-					    <p class="card-text price">{{ product.best_price.price }}</p>
-					    <p class="card-text">{{ product.best_price.provider.name }}</p>
+					    <div class="best-price">
+					    	<p class="card-text price">{{ product.best_price.price }}</p>
+					    	<p class="card-text">{{ product.best_price.provider.name }}</p>					    	
+					    </div>
 					  </div>
 					</a>
 				</div>

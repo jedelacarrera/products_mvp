@@ -179,5 +179,40 @@ h2 {
 }
 
 .offers {
+	max-width: 650px;
+}
+
+.product-info {
+	display: flex;
+	flex-direction: row;
 	max-width: 720px;
+	background-color: white;
+}
+
+.product-image {
+	flex: 1;
+	display: flex;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.product-content {
+	flex: 4;
+	flex-direction: column;
+	padding: 10px;
+	display: flex;
+}
+
+.product-content p, .product-content hr {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	color: grey;
+}
+
+h3 {
+	text-align: center;
+	margin-top: 20px;
 }
