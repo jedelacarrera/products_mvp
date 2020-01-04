@@ -28,14 +28,21 @@
 					<p>{{offer.provider.description}}</p>
 				</div>
 				<div class="offer-price">
-					<div class="price-container line-through">
-						<p>Precio lista</p>
-						<p class="price">$ {{offer.price}}</p>
-					</div>
-					<div class="price-container">
-						<p>Precio Oferta</p>
-						<p class="price sale">$ 400</p>
-					</div>
+					{% if offer.sale_price %}
+						<div class="price-container line-through">
+							<p>Precio lista</p>
+							<p class="price">$ {{offer.price}}</p>
+						</div>
+						<div class="price-container">
+							<p>Precio Oferta</p>
+							<p class="price sale">$ {{offer.sale_price}}</p>
+						</div>
+					{% else %}
+						<div class="price-container">
+							<p>Precio Oferta</p>
+							<p class="price">$ {{offer.price}}</p>
+						</div>
+					{% endif %}
 				</div>
 			</div>
 		</div>
