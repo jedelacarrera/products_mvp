@@ -37,9 +37,8 @@ def update_data():
 
     success = request.args.get('ok') is not None
     error = request.args.get('error')
-    return render_template('data.html', success=success, error=error)
+    return render_template('data.html', success=success, error=error, file=sorted(os.listdir('tmp'))[-1])
 
-@app.route('/data.csv', methods=['GET'])
-def api_search_result():
-    filename = sorted(os.listdir('tmp'))[-1]
-    return send_from_directory('tmp', filename)
+@app.route('/data/<file>', methods=['GET'])
+def api_search_result(file):
+    return send_from_directory('tmp', file)

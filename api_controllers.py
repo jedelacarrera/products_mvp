@@ -65,15 +65,15 @@ def create_offer(line):
         provider_id=provider_id,
         source=splitted_line[4] or None,
         comment=splitted_line[9] or None,
-        price=splitted_line[10].replace('$', '') or None,
-        sale_price=splitted_line[11].replace('$', '') or None,
+        price=splitted_line[10].replace('$', '').replace('.', '') or None,
+        sale_price=splitted_line[11].replace('$', '').replace('.', '') or None,
     )
 
     db.session.add(offer)
     db.session.commit()
 
 def handle_file(filename):
-    with open(filename, 'r') as file:
+    with open(filename, 'r', encoding="ISO-8859-1") as file:
         file.readline()
         try:
             for line in file.readlines():
