@@ -56,6 +56,9 @@ h4 {
 	font-weight: 501;
 }
 
+.col-sm-4 {
+	margin: 0;
+}
 .navbar-brand {
 	font-weight: bold;
 }
@@ -71,9 +74,14 @@ h4 {
 
 .best-price p {
 	margin-bottom: 0;
+	flex: 1;
 }
 .best-price img {
-	margin-left: 20px;
+	margin-left: 10px;
+	flex: 1;
+	max-width: 100%;
+	height: auto;
+	max-height: 50px;
 }
 
 h2 {

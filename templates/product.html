@@ -5,7 +5,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<title>Mejores precios</title>
 	<link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='index.jpeg') }}"/>
-	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"/>
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles_v6.css') }}"/>
 </head>
 <body>
 	<nav class="navbar navbar-dark bg-primary">
@@ -24,6 +24,9 @@
 		<div class="product-content">
 			<p>{{product.brand}}</p>
 			<p class="product-description">{{product.description}}</p>
+			{% if product.complete_description %}
+				<p>{{product.complete_description}}</p>
+			{% endif %}
 			<hr>
 			<p>{{product.quantity}}</p>
 			<p>{{product.category}}</p>
@@ -80,7 +83,7 @@
 					    <h3 class="card-title">{{ product.description }}</h3>
 					    <div class="best-price">
 					    	<p class="card-text price">{{ product.best_price.price }}</p>
-					    	<p class="card-text">{{ product.best_price.provider.name }}</p>					    	
+					    	<img src="{{ url_for('static', filename=product.best_price.provider.url) }}"/>
 					    </div>
 					  </div>
 					</a>
