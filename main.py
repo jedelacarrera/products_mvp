@@ -20,7 +20,7 @@ def products():
     if request.headers.get('Content-Type') == 'application/json':
         return jsonify(products)
 
-    return render_template('products.html', products=products['products'], search=search)
+    return render_template('products.html', search=search, categories=products['categories'])
 
 @app.route('/products/<pid>/', methods=['GET'])
 def product(pid):

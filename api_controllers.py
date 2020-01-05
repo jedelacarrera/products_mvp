@@ -8,7 +8,14 @@ INPUT_FOLDER = 'tmp/'
 
 def get_products(search=''):
     products = Product.query.filter(Product.description.ilike('%' + search + '%')).order_by(Product.category, Product.description).all()
-    return {"products": [product.dict for product in products if len(product.offers) > 0 and product.best_price != None]}
+    products = list(filter(lambda product: len(product.offers) > 0 and product.best_price != None, products))
+    categories = {}
+    for product in products:
+        if categories.get(product.category):
+            categories.get(product.category).append(product)
+        else:
+            categories[product.category] = [product]
+    return {"categories": categories}
 
 def get_offers_by_product(pid):
     product = Product.query.filter_by(id=pid).first()

@@ -14,6 +14,12 @@ body {
 
 /* Products */
 
+h4 {
+	font-weight: bold;
+	padding-left: 40px;
+	color: #333;
+}
+
 .a-card,
 .a-card:hover {
   color: inherit;
