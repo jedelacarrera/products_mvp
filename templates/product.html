@@ -72,7 +72,9 @@
 		{% endfor %}
 	</div>
 	<div class="container">
-		<h2>Productos similares</h2>
+		{% if similar_products %}
+			<h2>Productos similares</h2>
+		{% endif %}
 		<div class="row card-group">
 		{% for product in similar_products %}
 			<div class="row col-sm-4">

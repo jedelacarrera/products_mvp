@@ -14,7 +14,8 @@ def get_products(search=''):
         if categories.get(product.category):
             categories.get(product.category).append(product)
         else:
-            categories[product.category] = [product]
+            categories[product.category] = [product.dict]
+    print(categories['Salsas'])
     return {"categories": categories}
 
 def get_offers_by_product(pid):
@@ -31,7 +32,7 @@ def get_providers():
     return {"providers": [provider.dict for provider in Provider.query.all()]}
 
 def get_product_id(line):
-    # Código, Marca, Descripción, Proveedor, Fuente, Peso, Descripción Completa, Categoría, Subcategoría, Observación, Precio Normal, Precio Oferta, Precio Pack, URL Foto Producto.
+    # Código, Marca, Descripción, Proveedor, Fuente, Peso, Descripción Completa, Categoría, Subcategoría, Observación, Precio Normal, Precio Oferta, URL Foto Producto.
     splitted_line = line.split(';')
     product = Product.query.filter_by(code=splitted_line[0]).first()
     if product:
@@ -46,8 +47,8 @@ def get_product_id(line):
         complete_description=splitted_line[6],
         category=splitted_line[7],
         subcategory=splitted_line[8],
-        # Skip 9, 10, 11, 12
-        url=splitted_line[13],
+        # Skip 9, 10, 11
+        url=splitted_line[12],
     )
     db.session.add(product)
     db.session.commit()
@@ -66,7 +67,6 @@ def create_offer(line):
         comment=splitted_line[9] or None,
         price=splitted_line[10].replace('$', '') or None,
         sale_price=splitted_line[11].replace('$', '') or None,
-        pack_price=splitted_line[12] or None,
     )
 
     db.session.add(offer)

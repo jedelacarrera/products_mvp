@@ -6,7 +6,6 @@ class Offer(db.Model):
     provider_id = db.Column(db.Integer, db.ForeignKey('provider.id'), nullable=False)
     price = db.Column(db.Integer, nullable=True)  # Precio
     sale_price = db.Column(db.Integer, nullable=True)  # Precio con descuento
-    pack_price = db.Column(db.Text, nullable=True)  # Precio con promocion, texto
     comment = db.Column(db.Text, unique=False, nullable=True)
     source = db.Column(db.Text, unique=False, nullable=True)
 
@@ -18,7 +17,6 @@ class Offer(db.Model):
             "provider": self.provider.dict,
             "price": self.price,
             "sale_price": self.sale_price,
-            "pack_price": self.pack_price,
             "comment": self.comment,
             "source": self.source,
         }

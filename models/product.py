@@ -18,7 +18,6 @@ class Product(db.Model):
     @property
     def best_price(self):
         best = Product.MAX_PRICE
-        pack = ''
         prices = []
         providers = []
         for offer in self.offers:
@@ -57,8 +56,9 @@ class Product(db.Model):
             return []
         products = Product.query.filter_by(category=self.category).all()
         products = list(filter(lambda prod: prod.id != self.id, products))
+        products = list(filter(lambda product: len(product.offers) > 0 and product.best_price != None, products))
         return products[:3]
 
 
     def __repr__(self):
-        return '<Product {id}: {description}>'.format(self.__dict__)
+        return '<Product {id}: {description}>'.format(**self.__dict__)
