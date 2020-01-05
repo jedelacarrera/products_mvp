@@ -23,9 +23,8 @@
 		</div>
 		<div class="product-content">
 			<p>{{product.brand}}</p>
-			<p>{{product.description}}</p>
+			<p class="product-description">{{product.description}}</p>
 			<hr>
-			<p>{{product.complete_description}}</p>
 			<p>{{product.quantity}}</p>
 			<p>{{product.category}}</p>
 		</div>
@@ -54,9 +53,15 @@
 						</div>
 					{% else %}
 						<div class="price-container">
-							<p>Precio Oferta</p>
+							<p>Precio lista</p>
 							<p class="price">$ {{offer.price}}</p>
 						</div>
+					{% endif %}
+					{% if offer.comment %}
+						<p class="offer-comment">{{offer.comment}}</p>
+					{% endif %}
+					{% if offer.source %}
+						<p class="offer-comment">Fuente: {{offer.source}}</p>
 					{% endif %}
 				</div>
 			</div>

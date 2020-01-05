@@ -27,7 +27,7 @@
 					    <h3 class="card-title">{{ product.description }}</h3>
 					    <div class="best-price">
 					    	<p class="card-text price">{{ product.best_price.price }}</p>
-					    	<p class="card-text">{{ product.best_price.provider.name }}</p>					    	
+					    	<img src="{{ url_for('static', filename=product.best_price.provider.url) }}"/>
 					    </div>
 					  </div>
 					</a>
