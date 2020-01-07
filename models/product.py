@@ -1,4 +1,5 @@
 from dbconfig import db
+import random
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -58,6 +59,7 @@ class Product(db.Model):
         products = Product.query.filter_by(category=self.category).all()
         products = list(filter(lambda prod: prod.id != self.id, products))
         products = list(filter(lambda product: len(product.offers) > 0 and product.best_price != None, products))
+        random.shuffle(products)
         return products[:3]
 
 
