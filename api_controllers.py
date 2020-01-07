@@ -91,8 +91,9 @@ def update_data(request):
     file.save(filename)
 
     offers = Offer.query.all()
-    for offer in offers:
-        db.session.delete(offer)
+    products = Product.query.all()
+    for obj in offers + products:
+        db.session.delete(obj)
     db.session.commit()
 
     return handle_file(filename)

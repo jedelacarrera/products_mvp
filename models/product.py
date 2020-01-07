@@ -32,8 +32,9 @@ class Product(db.Model):
 
         best = min(prices)
         provider = providers[prices.index(best)]
+        best = int(best // 1)
 
-        return {'price': '$' + str(int(best // 1)), 'provider': provider.dict}
+        return {'price': '$' + str(best), 'provider': provider.dict, 'formatted_price': '$' + format(best, ',d').replace(',', '.')}
 
     @property
     def dict(self):

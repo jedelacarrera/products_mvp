@@ -125,6 +125,7 @@ h2 {
 
 .offer-name {
 	font-weight: bold;
+	/*font-size: 20px*/
 }
 .offer-price {
 	padding-top: 10px;
@@ -205,4 +206,13 @@ p.product-description {
 h3 {
 	text-align: center;
 	margin-top: 20px;
+}
+
+@media (max-width: 1000px) {
+	.container {
+		max-width: 1000px;
+	}
+	.offer-comment {
+		font-size: 1em;
+	}
 }
