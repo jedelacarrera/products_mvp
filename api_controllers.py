@@ -14,7 +14,7 @@ def get_products(search=''):
         if categories.get(product.category):
             categories.get(product.category).append(product)
         else:
-            categories[product.category] = [product.dict
+            categories[product.category] = [product.dict]
     return {"categories": categories}
 
 def get_offers_by_product(pid):
