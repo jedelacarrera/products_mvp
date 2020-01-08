@@ -42,3 +42,9 @@ def update_data():
 @app.route('/data/<file>', methods=['GET'])
 def api_search_result(file):
     return send_from_directory('tmp', file)
+
+
+@app.template_filter()
+def format_price(price):
+    """1000 -> $1.000"""
+    return '$' + format(price, ',d').replace(',', '.')

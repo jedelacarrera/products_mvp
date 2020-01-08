@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<title>Mejores precios</title>
-	<link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='index.jpeg') }}"/>
-	<link rel="stylesheet" href="{{ url_for('static', filename='styles_v7.css') }}"/>
-</head>
-<body>
-	<nav class="navbar navbar-dark bg-primary">
-  	  <a class="navbar-brand" href='/products/'>Mis productos</a>
-	  <a class="nav-item nav-link active" href="/data/">Actualizar datos</a>
-	  <form class="form-inline" action="/products/" method="get">
-	    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" value="{{search}}" autofocus>
-	    <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
-	  </form>
-	</nav>
+{% extends "base.html" %}
+{% block content %}
 	<h3>Detalles del producto</h3>
 	<div class="container product-info">
 		<div class="product-image">
@@ -48,16 +32,16 @@
 					{% if offer.sale_price %}
 						<div class="price-container line-through">
 							<p>Precio lista</p>
-							<p class="price">$ {{offer.price}}</p>
+							<p class="price">{{offer.price|format_price}}</p>
 						</div>
 						<div class="price-container">
 							<p>Precio Oferta</p>
-							<p class="price sale">$ {{offer.sale_price}}</p>
+							<p class="price sale">{{offer.sale_price|format_price}}</p>
 						</div>
 					{% else %}
 						<div class="price-container">
 							<p>Precio lista</p>
-							<p class="price">$ {{offer.price}}</p>
+							<p class="price">{{offer.price|format_price}}</p>
 						</div>
 					{% endif %}
 					{% if offer.comment %}
@@ -76,24 +60,9 @@
 			<h2>Productos similares</h2>
 		{% endif %}
 		<div class="row card-group">
-		{% for product in similar_products %}
-			<div class="row col-sm-4">
-				<div class="card">
-					<a href="/products/{{product.id}}" class="a-card">
-					  <img class="card-img-top" src="{{product.url}}" alt="Product image" width="100px">
-					  <div class="card-body">
-					    <h3 class="card-title">{{ product.description }}</h3>
-					    <div class="best-price">
-					    	<p class="card-text price">{{ product.best_price.formatted_price }}</p>
-					    	<img src="{{ url_for('static', filename=product.best_price.provider.url) }}"/>
-					    </div>
-					  </div>
-					</a>
-				</div>
-			</div>
-		{% endfor %}
+			{% with products=similar_products %}
+				{% include "product_template.html" %}
+			{% endwith %}
 		</div>
 	</div>
-</body>
-</html>
-
+{% endblock %}
