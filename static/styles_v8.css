@@ -156,7 +156,7 @@ h2 {
 	color: grey;
 }
 .price {
-	font-size: 1.3em;
+	font-size: 1.7em;
 }
 .sale {
 	color: red;
@@ -200,12 +200,17 @@ h2 {
 
 p.product-description {
 	color: black;
-	font-size: 1.3em;
+	font-size: 2em;
 }
 
 h3 {
 	text-align: center;
 	margin-top: 20px;
+}
+
+.similar_products {
+	padding-top: 25px;
+	padding-bottom: 15px;
 }
 
 @media (max-width: 1000px) {
