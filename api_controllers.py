@@ -11,8 +11,8 @@ def get_products(search=''):
     products = list(filter(lambda product: len(product.offers) > 0 and product.best_price != None, products))
     categories = {}
     for product in products:
-        if categories.get(product.category):
-            categories.get(product.category).append(product)
+        if categories.get(product.category.lower()):
+            categories.get(product.category.lower()).append(product)
         else:
             categories[product.category] = [product.dict]
     return {"categories": categories}
