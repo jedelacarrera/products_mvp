@@ -57,11 +57,13 @@ def create_offer(line):
     product_id = get_product_id(line)
 
     splitted_line = line.split(';')
-    provider_id = Provider.query.filter_by(name=splitted_line[3]).first().id,
+    provider = Provider.query.filter_by(name=splitted_line[3].strip()).first()
+    if not provider:
+        raise Exception(f'Provider "{splitted_line[3]}" does not exist')
 
     offer = Offer(
         product_id=product_id,
-        provider_id=provider_id,
+        provider_id=provider.id,
         source=splitted_line[4] or None,
         comment=splitted_line[9] or None,
         price=splitted_line[10].replace('$', '').replace('.', '') or None,
@@ -74,11 +76,11 @@ def create_offer(line):
 def handle_file(filename):
     with open(filename, 'r', encoding="ISO-8859-1") as file:
         file.readline()
-        try:
-            for line in file.readlines():
+        for index, line in enumerate(file.readlines()):
+            try:
                 product_id = create_offer(line)
-        except Exception as error:
-            return str(error)
+            except Exception as error:
+                return f'Line {index + 2}: {str(error)}'
 
 
 def update_data(request):
