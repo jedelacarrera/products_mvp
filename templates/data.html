@@ -13,7 +13,8 @@
 		    color: hsl(0, 0%, 33%);
 		}
 		body {
-			background-color: #f8f9fa
+			background-color: #f8f9fa;
+			margin-bottom: 50px;
 		}
 
 		.navbar-brand {
@@ -28,7 +29,7 @@
 	<div class="container" style="margin-top: 50px">
 		{% if success %}
 			<div class="alert alert-success" role="alert">
-	  			Actualizado correctamente
+	  			{{success}}
 			</div>
 		{% endif %}
 		{% if error %}
@@ -68,6 +69,23 @@
 				<button type="button" class="btn btn-primary">Descagar datos actuales</button>
 			</a>
 			<p>Ideal para editar los datos que se ven actualmente</p>
+		</div>
+		{% if scrape %}
+			<div>
+				<p>Status última descarga de central mayorista: {{scrape.status}}<p>
+				{% if scrape.status == "SUCCESS" %}
+					<a href="/scrapes/central_mayorista/{{scrape.filename}}">
+						<button type="button" class="btn btn-primary">Descargar último archivo con datos de central mayorista</button>
+					</a>
+				{% endif %}
+			</div>
+		{% endif %}
+		<div>
+			<form class="row" action="/scrapes/central_mayorista/" method="post">
+				<div class="col-md-5">
+					<button type="submit" class="btn btn-warning">Obtener datos de Central Mayorista nuevamente</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </body>

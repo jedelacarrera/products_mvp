@@ -1,7 +1,9 @@
-from models import Product, Offer, Provider, db
+from models import Product, Offer, Provider, CentralMayoristaScrape, db
+from datetime import datetime
 import os
 from flask import abort
 import time
+from scrapers.central_mayorista_scraper import CentralMayoristaScraper
 
 INPUT_FOLDER = 'tmp/'
 # GET controllers
@@ -12,9 +14,9 @@ def get_products(search=''):
     categories = {}
     for product in products:
         if categories.get(product.category.lower()):
-            categories.get(product.category.lower()).append(product)
+            categories.get(product.category.lower()).append(product.dict)
         else:
-            categories[product.category] = [product.dict]
+            categories[product.category.lower()] = [product.dict]
     return {"categories": categories}
 
 def get_offers_by_product(pid):
@@ -74,14 +76,13 @@ def create_offer(line):
     db.session.commit()
 
 def handle_file(filename):
-    with open(filename, 'r', encoding="ISO-8859-1") as file:
+    with open(filename, 'r', encoding="utf-8") as file:
         file.readline()
         for index, line in enumerate(file.readlines()):
             try:
                 product_id = create_offer(line)
             except Exception as error:
                 return f'Line {index + 2}: {str(error)}'
-
 
 def update_data(request):
     file = request.files.get('file')
@@ -99,3 +100,27 @@ def update_data(request):
     db.session.commit()
 
     return handle_file(filename)
+
+def get_central_mayorista_last_scrape():
+    return CentralMayoristaScrape.query.order_by(CentralMayoristaScrape.id.desc()).first()
+
+def new_scrape():
+    element = CentralMayoristaScrape(status='STARTED')
+    db.session.add(element)
+    db.session.commit()
+    return element
+
+def scrape_central_mayorista(element):
+    scraper = CentralMayoristaScraper()
+    try:
+        filename = scraper.scrape()
+        scraper.finish_session()
+
+        element.filename = filename
+        element.status = 'SUCCESS'
+    except Exception as e:
+        element.status = 'ERROR: ' + str(e)
+
+    element.updated_at = str(datetime.now())
+    db.session.add(element)
+    db.session.commit()
