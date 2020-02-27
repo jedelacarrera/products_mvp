@@ -1,18 +1,18 @@
 {% for product in products %}
-	<div class="row col-sm-4">
-		<div class="card">
-			<a href="/products/{{product.id}}" class="a-card">
-			  <div style="min-height: 250px;">
-			  	<img class="card-img-top" src="{{product.url}}" alt="Foto disponible pronto" width="100px">
-			  </div>
-			  <div class="card-body">
-			    <h3 class="card-title">{{ product.description }}</h3>
-			    <div class="best-price">
-			    	<p class="card-text price">{{ product.best_price.price|format_price }}</p>
-			    	<img src="{{ url_for('static', filename=product.best_price.provider.url) }}"/>
-			    </div>
-			  </div>
-			</a>
-		</div>
-	</div>
+    <div class="row col-sm-4">
+        <div class="card">
+            <a href="/products/{{product.id}}" class="a-card">
+              <div style="min-height: 250px;">
+                <img class="card-img-top" src="{{product.url}}" alt="Foto disponible pronto" width="100px">
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">{{ product.description }}</h3>
+                <div class="best-price">
+                    <p class="card-text price">{{ product.best_price.price|format_price }}</p>
+                    <img src="{{ url_for('static', filename=product.best_price.provider.url) }}"/>
+                </div>
+              </div>
+            </a>
+        </div>
+    </div>
 {% endfor %}
