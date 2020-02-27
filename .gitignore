@@ -15,9 +15,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# tmp/*
 *.csv
 *.xls
+*.pdf
 !00_seed.csv
 !.gitkeep
-
-tmp/*
