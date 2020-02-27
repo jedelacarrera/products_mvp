@@ -9,7 +9,6 @@ from selenium.webdriver.chrome.options import Options
 
 class CentralMayoristaScraper:
     url = 'https://centralmayorista.walmartdigital.cl/'
-    url = 'https://centralmayorista.walmartdigital.cl/search?query=yogurt%20yoghito'
 
     def __init__(self, destination_folder='tmp/scrapes/central_mayorista/', url=None):
         if url:

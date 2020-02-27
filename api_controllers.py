@@ -9,7 +9,7 @@ INPUT_FOLDER = 'tmp/'
 # GET controllers
 
 def get_products(search=''):
-    products = Product.query.filter(Product.description.ilike('%' + search + '%')).order_by(Product.category, Product.description).all()
+    products = Product.query.filter(Product.description.ilike('%' + search + '%')).order_by(Product.category, Product.description).limit(200).all()
     products = list(filter(lambda product: len(product.offers) > 0 and product.best_price != None, products))
     categories = {}
     for product in products:
@@ -32,12 +32,12 @@ def get_offers_by_product(pid):
 def get_providers():
     return {"providers": [provider.dict for provider in Provider.query.all()]}
 
-def get_product_id(line):
+def get_product_from_line(line):
     # Código, Marca, Descripción, Proveedor, Fuente, Peso, Descripción Completa, Categoría, Subcategoría, Observación, Precio Normal, Precio Oferta, URL Foto Producto.
     splitted_line = line.split(';')
     product = Product.query.filter_by(code=splitted_line[0]).first()
     if product:
-        return product.id
+        return product
 
     product = Product(
         code=splitted_line[0],
@@ -52,28 +52,29 @@ def get_product_id(line):
         url=splitted_line[12],
     )
     db.session.add(product)
-    db.session.commit()
-    return product.id
+    # db.session.commit()
+    return product
 
 def create_offer(line):
-    product_id = get_product_id(line)
+    product = get_product_from_line(line)
 
     splitted_line = line.split(';')
     provider = Provider.query.filter_by(name=splitted_line[3].strip()).first()
     if not provider:
         raise Exception(f'Provider "{splitted_line[3]}" does not exist')
 
-    offer = Offer(
-        product_id=product_id,
+    product.offers.append(
+    Offer(
+        # product_id=product_id,
         provider_id=provider.id,
         source=splitted_line[4] or None,
         comment=splitted_line[9] or None,
         price=splitted_line[10].replace('$', '').replace('.', '') or None,
         sale_price=splitted_line[11].replace('$', '').replace('.', '') or None,
-    )
+    ))
 
-    db.session.add(offer)
-    db.session.commit()
+    # db.session.add(offer)
+    # db.session.commit()
 
 def handle_file(filename):
     with open(filename, 'r', encoding="utf-8") as file:
@@ -82,7 +83,10 @@ def handle_file(filename):
             try:
                 product_id = create_offer(line)
             except Exception as error:
+                # raise error
                 return f'Line {index + 2}: {str(error)}'
+
+    db.session.commit()
 
 def update_data(request):
     file = request.files.get('file')

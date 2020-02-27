@@ -3,7 +3,7 @@ import random
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    code = db.Column(db.String(120), unique=False, nullable=True)
+    code = db.Column(db.String(120), unique=True, index=True)
     brand = db.Column(db.String(120), unique=False, nullable=True)
     description = db.Column(db.String(120), unique=False, nullable=True)
     complete_description = db.Column(db.String(120), unique=False, nullable=True)
