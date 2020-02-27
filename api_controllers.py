@@ -77,7 +77,7 @@ def create_offer(line):
     # db.session.commit()
 
 def handle_file(filename):
-    with open(filename, 'r', encoding="utf-8") as file:
+    with open(filename, 'r', encoding="utf-8", errors='ignore') as file:
         file.readline()
         for index, line in enumerate(file.readlines()):
             try:
