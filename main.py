@@ -1,11 +1,14 @@
 import os
 import uuid
+import time
 from flask import Flask, jsonify, request, redirect, render_template, redirect, url_for, send_from_directory
 from threading import Thread
 
 app = Flask(__name__)
 
 import api_controllers
+
+INPUT_FOLDER = 'tmp/'
 
 
 @app.route('/', methods=['GET'])
@@ -31,10 +34,16 @@ def product(pid):
 @app.route('/data/', methods=['GET', 'POST'])
 def update_data():
     if request.method == 'POST':
-        error = api_controllers.update_data(request)
-        if error:
-            return redirect(url_for('update_data', error=error))
-        return redirect(url_for('update_data', ok='Actualizado correctamente'))
+        file = request.files.get('file')
+        if not file:
+            return abort(400)
+        filename = INPUT_FOLDER + str(time.time()) + '_' + file.filename
+        file.save(filename)
+        thread = Thread(target=api_controllers.update_data, args=(filename,))
+        thread.start()
+        # if error:
+            # return redirect(url_for('update_data', error=error))
+        return redirect(url_for('update_data', ok='Actualición iniciada correctamente'))
 
     success = request.args.get('ok')
     error = request.args.get('error')

@@ -5,7 +5,6 @@ from flask import abort
 import time
 from scrapers.central_mayorista_scraper import CentralMayoristaScraper
 
-INPUT_FOLDER = 'tmp/'
 # GET controllers
 
 def get_products(search=''):
@@ -88,22 +87,17 @@ def handle_file(filename):
 
     db.session.commit()
 
-def update_data(request):
-    file = request.files.get('file')
-
-    if not file:
-        return abort(400)
-
-    filename = INPUT_FOLDER + str(time.time()) + '_' + file.filename
-    file.save(filename)
-
+def update_data(filename):
     offers = Offer.query.all()
     products = Product.query.all()
     for obj in offers + products:
         db.session.delete(obj)
     db.session.commit()
 
-    return handle_file(filename)
+    result = handle_file(filename)
+    print('File handled')
+    print(result)
+    return result
 
 def get_central_mayorista_last_scrape():
     return CentralMayoristaScrape.query.order_by(CentralMayoristaScrape.id.desc()).first()
