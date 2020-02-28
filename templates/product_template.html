@@ -3,7 +3,7 @@
         <div class="card">
             <a href="/products/{{product.id}}" class="a-card">
               <div style="min-height: 250px;">
-                <img class="card-img-top" src="{{product.url}}" alt="Foto disponible pronto" width="100px">
+                <img class="card-img-top" src="{{product.url}}" onerror="this.src='/static/unknown_image.png'" width="100px">
               </div>
               <div class="card-body">
                 <h3 class="card-title">{{ product.description }}</h3>
