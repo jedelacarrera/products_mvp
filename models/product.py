@@ -8,7 +8,7 @@ class Product(db.Model):
     description = db.Column(db.String(120), unique=False, nullable=True)
     complete_description = db.Column(db.String(120), unique=False, nullable=True)
     quantity = db.Column(db.String(120), unique=False, nullable=True)
-    category = db.Column(db.String(120), unique=False, nullable=True)
+    category = db.Column(db.String(120), index=True, unique=False, nullable=True)
     subcategory = db.Column(db.String(120), unique=False, nullable=True)
     url = db.Column(db.Text, unique=False, nullable=True)
 
@@ -56,7 +56,7 @@ class Product(db.Model):
     def similar_products(self):
         if not self.category:
             return []
-        products = Product.query.filter_by(category=self.category).all()
+        products = Product.query.filter_by(category=self.category).limit(30).all()
         products = list(filter(lambda prod: prod.id != self.id, products))
         products = list(filter(lambda product: len(product.offers) > 0 and product.best_price != None, products))
         random.shuffle(products)
