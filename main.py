@@ -48,26 +48,39 @@ def update_data():
     success = request.args.get('ok')
     error = request.args.get('error')
     files = sorted([file for file in os.listdir('tmp') if '.csv' in file])
-    last_scrape = api_controllers.get_central_mayorista_last_scrape()
-    return render_template('data.html', success=success, error=error, file=files[-1], scrape=last_scrape)
+    last_scrape_mayorista = api_controllers.get_last_scrape('Central Mayorista')
+    last_scrape_caserita = api_controllers.get_last_scrape('La Caserita')
+    return render_template('data.html', success=success, error=error, file=files[-1], mayorista_scrape=last_scrape_mayorista, caserita_scrape=last_scrape_caserita)
 
 @app.route('/data/<file>', methods=['GET'])
 def api_search_result(file):
     return send_from_directory('tmp', file)
 
 @app.route('/scrapes/central_mayorista/', methods=['POST'])
-def scrape():
-    element = api_controllers.new_scrape()
+def scrape_central_mayorista():
+    element = api_controllers.new_scrape('Central Mayorista')
     thread = Thread(target=api_controllers.scrape_central_mayorista, args=(element,))
     thread.start()
-    return redirect(url_for('update_data', ok='Proceso iniciado correctamente'))
+    return redirect(url_for('update_data', ok='Proceso iniciado correctamente (Central Mayorista)'))
+
+@app.route('/scrapes/la_caserita/', methods=['POST'])
+def scrape_la_caserita():
+    element = api_controllers.new_scrape('La Caserita')
+    thread = Thread(target=api_controllers.scrape_la_caserita, args=(element,))
+    thread.start()
+    return redirect(url_for('update_data', ok='Proceso iniciado correctamente (La Caserita)'))
 
 @app.route('/scrapes/central_mayorista/<file>', methods=['GET'])
-def scrape_file(file):
+def scrape_central_mayorista_file(file):
     if not os.path.isfile('./tmp/scrapes/central_mayorista/' + file):
         return redirect(url_for('update_data', error='Se eliminó el archivo, deberías haberlo guardado. Puedes obtener la información nuevamente'))
     return send_from_directory('tmp/scrapes/central_mayorista/', file)
 
+@app.route('/scrapes/la_caserita/<file>', methods=['GET'])
+def scrape_la_caserita_file(file):
+    if not os.path.isfile('./tmp/scrapes/la_caserita/' + file):
+        return redirect(url_for('update_data', error='Se eliminó el archivo, deberías haberlo guardado. Puedes obtener la información nuevamente'))
+    return send_from_directory('tmp/scrapes/la_caserita/', file)
 
 @app.template_filter()
 def format_price(price):

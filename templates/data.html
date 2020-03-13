@@ -63,17 +63,21 @@
 				<li>La Caserita</li>
 			</ul>
 		</div>
-		<div>
+		<div style="display: flex; flex-direction: row;">
 			<a href="/data/{{file}}">
 				<button type="button" class="btn btn-primary">Descagar datos actuales</button>
 			</a>
-			<p>Ideal para editar los datos que se ven actualmente</p>
+			<p style="padding: 5px;">Ideal para editar los datos que se ven actualmente</p>
 		</div>
-		{% if scrape %}
+		
+		<br>
+		<br>
+
+		{% if mayorista_scrape %}
 			<div>
-				<p>Status última descarga de central mayorista: {{scrape.status}}<p>
-				{% if scrape.status == "SUCCESS" %}
-					<a href="/scrapes/central_mayorista/{{scrape.filename}}">
+				<p>Status última descarga de Central Mayorista: {{mayorista_scrape.status}}<p>
+				{% if mayorista_scrape.status == "SUCCESS" %}
+					<a href="/scrapes/central_mayorista/{{mayorista_scrape.filename}}">
 						<button type="button" class="btn btn-primary">Descargar último archivo con datos de central mayorista</button>
 					</a>
 				{% endif %}
@@ -83,6 +87,28 @@
 			<form class="row" action="/scrapes/central_mayorista/" method="post">
 				<div class="col-md-5">
 					<button type="submit" class="btn btn-warning">Obtener datos de Central Mayorista nuevamente</button>
+				</div>
+				<p>Demorará alrededor de 4 minutos</p>
+			</form>
+		</div>
+
+		<br>
+		<br>
+
+		{% if caserita_scrape %}
+			<div>
+				<p>Status última descarga de Central Mayorista: {{caserita_scrape.status}}<p>
+				{% if caserita_scrape.status == "SUCCESS" %}
+					<a href="/scrapes/la_caserita/{{caserita_scrape.filename}}">
+						<button type="button" class="btn btn-primary">Descargar último archivo con datos de la caserita</button>
+					</a>
+				{% endif %}
+			</div>
+		{% endif %}
+		<div>
+			<form class="row" action="/scrapes/la_caserita/" method="post">
+				<div class="col-md-5">
+					<button type="submit" class="btn btn-warning">Obtener datos de La Caserita nuevamente</button>
 				</div>
 				<p>Demorará alrededor de 4 minutos</p>
 			</form>

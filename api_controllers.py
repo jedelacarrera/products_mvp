@@ -1,9 +1,10 @@
-from models import Product, Offer, Provider, CentralMayoristaScrape, db
+from models import Product, Offer, Provider, Scrape, db
 from datetime import datetime
 import os
 from flask import abort
 import time
 from scrapers.central_mayorista_scraper import CentralMayoristaScraper
+from scrapers.la_caserita_scraper import LaCaseritaScraper
 
 # GET controllers
 
@@ -99,11 +100,13 @@ def update_data(filename):
     print(result)
     return result
 
-def get_central_mayorista_last_scrape():
-    return CentralMayoristaScrape.query.order_by(CentralMayoristaScrape.id.desc()).first()
+def get_last_scrape(provider_name):
+    provider = Provider.query.filter_by(name=provider_name).first()
+    return Scrape.query.order_by(Scrape.id.desc()).filter_by(provider_id=provider.id).first()
 
-def new_scrape():
-    element = CentralMayoristaScrape(status='STARTED')
+def new_scrape(provider_name):
+    provider = Provider.query.filter_by(name=provider_name).first()
+    element = Scrape(status='STARTED', provider_id=provider.id)
     db.session.add(element)
     db.session.commit()
     return element
@@ -113,6 +116,20 @@ def scrape_central_mayorista(element):
     try:
         filename = scraper.scrape()
         scraper.finish_session()
+
+        element.filename = filename
+        element.status = 'SUCCESS'
+    except Exception as e:
+        element.status = 'ERROR: ' + str(e)
+
+    element.updated_at = str(datetime.now())
+    db.session.add(element)
+    db.session.commit()
+
+def scrape_la_caserita(element):
+    scraper = LaCaseritaScraper()
+    try:
+        filename = scraper.scrape()
 
         element.filename = filename
         element.status = 'SUCCESS'
