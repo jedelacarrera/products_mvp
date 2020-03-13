@@ -9,7 +9,7 @@ from scrapers.la_caserita_scraper import LaCaseritaScraper
 # GET controllers
 
 def get_products(search=''):
-    products = Product.query.filter(Product.description.ilike('%' + search + '%')).order_by(Product.category, Product.description).limit(200).all()
+    products = Product.query.filter(Product.description.ilike('%' + search + '%')).order_by(Product.category, Product.description).limit(2000).all()
     products = list(filter(lambda product: len(product.offers) > 0 and product.best_price != None, products))
     categories = {}
     for product in products:
