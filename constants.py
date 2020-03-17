@@ -13,3 +13,10 @@ class Alvi:
 class Walmart:
 	name = 'Walmart'
 	url_name = 'walmart'
+
+TRANSLATIONS = {
+	CentralMayorista.url_name: CentralMayorista.name,
+	LaCaserita.url_name: LaCaserita.name,
+	Alvi.url_name: Alvi.name,
+	Walmart.url_name: Walmart.name,
+}

@@ -4,7 +4,7 @@ import time
 from flask import Flask, jsonify, request, redirect, render_template, redirect, url_for, send_from_directory
 from threading import Thread
 
-from constants import CentralMayorista, LaCaserita, Alvi, Walmart
+from constants import CentralMayorista, LaCaserita, Alvi, Walmart, TRANSLATIONS
 
 app = Flask(__name__)
 
@@ -43,25 +43,16 @@ def update_data():
         file.save(filename)
         thread = Thread(target=api_controllers.update_data, args=(filename,))
         thread.start()
-        # if error:
-            # return redirect(url_for('update_data', error=error))
         return redirect(url_for('update_data', ok='Actualición iniciada correctamente'))
-
-    success = request.args.get('ok')
-    error = request.args.get('error')
-    files = sorted([file for file in os.listdir('tmp') if '.csv' in file])
-    last_scrape_mayorista = api_controllers.get_last_scrape(CentralMayorista.name)
-    last_scrape_caserita = api_controllers.get_last_scrape(LaCaserita.name)
-    last_scrape_alvi = api_controllers.get_last_scrape(Alvi.name)
 
     return render_template(
         'data.html',
-        success=success,
-        error=error,
-        file=files[-1],
-        mayorista_scrape=last_scrape_mayorista,
-        caserita_scrape=last_scrape_caserita,
-        alvi_scrape=last_scrape_alvi
+        success=request.args.get('ok'),
+        error=request.args.get('error'),
+        file=sorted([file for file in os.listdir('tmp') if '.csv' in file])[-1],
+        mayorista_scrape=api_controllers.get_last_scrape(CentralMayorista.name),
+        caserita_scrape=api_controllers.get_last_scrape(LaCaserita.name),
+        alvi_scrape=api_controllers.get_last_scrape(Alvi.name)
     )
 
 @app.route('/data/<file>', methods=['GET'])
@@ -69,23 +60,14 @@ def api_search_result(file):
     return send_from_directory('tmp', file)
 
 @app.route('/scrapes/<provider>/', methods=['POST'])
-def scrape_central_mayorista(provider):
-    if provider == CentralMayorista.url_name:
-        element = api_controllers.new_scrape(CentralMayorista.name)
-        thread = Thread(target=api_controllers.scrape, args=(provider, element))
-    elif provider == LaCaserita.url_name:
-        element = api_controllers.new_scrape(LaCaserita.name)
-        thread = Thread(target=api_controllers.scrape, args=(provider, element))
-    elif provider == Alvi.url_name:
-        element = api_controllers.new_scrape(Alvi.name)
-        thread = Thread(target=api_controllers.scrape, args=(provider, element))
-    else:
-        return redirect(url_for('update_data', ok=f'Error, proveedor no existe'))
+def scrape(provider):
+    element = api_controllers.new_scrape(TRANSLATIONS[provider])
+    thread = Thread(target=api_controllers.scrape, args=(provider, element))
     thread.start()
     return redirect(url_for('update_data', ok=f'Proceso iniciado correctamente ({provider})'))
 
 @app.route('/scrapes/<provider>/<file>', methods=['GET'])
-def scrape_central_mayorista_file(provider, file):
+def get_scrape_file(provider, file):
     if not os.path.isfile(f'./tmp/scrapes/{provider}/' + file):
         return redirect(url_for('update_data', error='Se eliminó el archivo, deberías haberlo guardado. Puedes obtener la información nuevamente'))
     return send_from_directory(f'tmp/scrapes/{provider}/', file)

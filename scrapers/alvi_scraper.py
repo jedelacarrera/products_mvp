@@ -93,7 +93,7 @@ class AlviScraper(BaseScraper):
             self.products.append(product)
             raise Exception('No valid price in product')
 
-        condition += f'Oferta: Mínimo {splitted_sale[0].strip()}.'
+        condition += f'Oferta: Precio Socio, mínimo {splitted_sale[0].strip()}.'
         sale_price = splitted_sale[1].split('c/')[0].strip()
         price_unit = 'c/' + splitted_sale[1].split('c/')[1].strip()
 
