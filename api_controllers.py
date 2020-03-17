@@ -3,8 +3,8 @@ from datetime import datetime
 import os
 from flask import abort
 import time
-from scrapers.central_mayorista_scraper import CentralMayoristaScraper
-from scrapers.la_caserita_scraper import LaCaseritaScraper
+from scrapers import CentralMayoristaScraper, LaCaseritaScraper, AlviScraper
+from constants import CentralMayorista, LaCaserita, Alvi, Walmart
 
 # GET controllers
 
@@ -111,25 +111,19 @@ def new_scrape(provider_name):
     db.session.commit()
     return element
 
-def scrape_central_mayorista(element):
-    scraper = CentralMayoristaScraper()
+def scrape(provider, element):
+    if provider == CentralMayorista.url_name:
+        scraper = CentralMayoristaScraper()
+    elif provider == LaCaserita.url_name:
+        scraper = LaCaseritaScraper()
+    elif provider == Alvi.url_name:
+        scraper = AlviScraper()
+    else:
+        raise Exception('Proveedor no disponible')
+
     try:
         filename = scraper.scrape()
         scraper.finish_session()
-
-        element.filename = filename
-        element.status = 'SUCCESS'
-    except Exception as e:
-        element.status = 'ERROR: ' + str(e)
-
-    element.updated_at = str(datetime.now())
-    db.session.add(element)
-    db.session.commit()
-
-def scrape_la_caserita(element):
-    scraper = LaCaseritaScraper()
-    try:
-        filename = scraper.scrape()
 
         element.filename = filename
         element.status = 'SUCCESS'

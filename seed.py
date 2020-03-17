@@ -1,11 +1,12 @@
 from api_controllers import db, handle_file
 from models import Provider
+from constants import CentralMayorista, LaCaserita, Alvi, Walmart
 
 def create_providers():
-    prov1 = Provider(name='Central Mayorista', url='central_mayorista.jpeg')
-    prov2 = Provider(name='Walmart', url='walmart_m.jpeg')
-    prov3 = Provider(name='La Caserita', url='la_caserita_m.png', description='Mayorista online')
-    prov4 = Provider(name='Alvi', url='alvi_m.jpeg', description='Club Mayorista')
+    prov1 = Provider(name=CentralMayorista.name, url='central_mayorista.jpeg')
+    prov2 = Provider(name=Walmart.name, url='walmart_m.jpeg')
+    prov3 = Provider(name=LaCaserita.name, url='la_caserita_m.png', description='Mayorista online')
+    prov4 = Provider(name=Alvi.name, url='alvi_m.jpeg', description='Club Mayorista')
 
     providers = [prov1, prov2, prov3, prov4]
 

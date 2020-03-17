@@ -5,9 +5,10 @@ from bs4 import BeautifulSoup
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from .base_scraper import BaseScraper
 
 
-class CentralMayoristaScraper:
+class CentralMayoristaScraper(BaseScraper):
     url = 'https://centralmayorista.walmartdigital.cl/'
 
     def __init__(self, destination_folder='tmp/scrapes/central_mayorista/', url=None):
