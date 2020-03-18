@@ -49,6 +49,7 @@
 				<button type="submit" class="btn btn-primary">Enviar</button>
 			</div>
 		</form>
+		<br>
 		<div>
 			<h2>Requerimientos</h2>
 			<p>Archivo CSV, archivo de texto plano en que los valores se separen por ";". En excel se puede exportar a CSV facilmente.</p>
@@ -97,7 +98,7 @@
 
 		{% if caserita_scrape %}
 			<div>
-				<p>Status última descarga de Central Mayorista: {{caserita_scrape.status}}<p>
+				<p>Status última descarga de La Caserita: {{caserita_scrape.status}}<p>
 				{% if caserita_scrape.status == "SUCCESS" %}
 					<a href="/scrapes/la_caserita/{{caserita_scrape.filename}}">
 						<button type="button" class="btn btn-primary">Descargar último archivo con datos de la caserita</button>
@@ -111,6 +112,28 @@
 					<button type="submit" class="btn btn-warning">Obtener datos de La Caserita nuevamente</button>
 				</div>
 				<p>Demorará alrededor de 4 minutos</p>
+			</form>
+		</div>
+
+		<br>
+		<br>
+
+		{% if alvi_scrape %}
+			<div>
+				<p>Status última descarga de Alvi: {{alvi_scrape.status}}<p>
+				{% if alvi_scrape.status == "SUCCESS" %}
+					<a href="/scrapes/alvi/{{alvi_scrape.filename}}">
+						<button type="button" class="btn btn-primary">Descargar último archivo con datos de Alvi</button>
+					</a>
+				{% endif %}
+			</div>
+		{% endif %}
+		<div>
+			<form class="row" action="/scrapes/alvi/" method="post">
+				<div class="col-md-5">
+					<button type="submit" class="btn btn-warning">Obtener datos de Alvi nuevamente</button>
+				</div>
+				<p>Demorará alrededor de 1 minuto</p>
 			</form>
 		</div>
 	</div>
