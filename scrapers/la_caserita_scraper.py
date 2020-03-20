@@ -4,6 +4,8 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from .base_scraper import BaseScraper
+from .la_caserita_codes import LA_CASERITA_CODES
+import time
 
 class LaCaseritaCategory:
     base_url = 'https://www.caserita.cl/catalog/category/view/s/'
@@ -28,7 +30,7 @@ class LaCaseritaScraper(BaseScraper):
         LaCaseritaCategory(8, 'frescos-y-congelados', 3),  # Por si acaso, queda muy justo con 2
         LaCaseritaCategory(9, 'bebidas-y-licores', 3),
         LaCaseritaCategory(10, 'confites-y-cocktail', 1),
-        LaCaseritaCategory(11, 'bazar', 1),
+        LaCaseritaCategory(11, 'bazar', 2),  # Por si acaso, queda muy justo con 1
     ]
 
     cookies = {
@@ -55,6 +57,7 @@ class LaCaseritaScraper(BaseScraper):
         return urls
 
     def scrape(self):
+        print(time.time())
         responses = [requests.get(url, cookies=self.cookies) for url in self.urls]
         category_names = []
         for category in self.categories:
@@ -62,13 +65,31 @@ class LaCaseritaScraper(BaseScraper):
                 category_names.append(category.name + '_' + str(i+1))
         for response, category_name in zip(responses, category_names):
             self.scrap_source(response.content, category_name)
+
+        print(time.time())
+        print('Products with category: ', len(self.codes))
+
+        responses = []
+        for code in LA_CASERITA_CODES:
+            if code in self.codes:
+                continue
+            responses.append(requests.get('https://www.caserita.cl/catalogsearch/result/?q=' + code, cookies=self.cookies))
+
+            if len(responses) % 10 == 0:
+                print(len(responses), 'codes', code, time.time())
+
+        for response in responses:
+            self.scrap_source(response.content)
+
+        print(time.time())
+        print('Total products: ', len(self.codes))
         return self.save_products()
 
-    def scrap_source(self, content, category_name):
+    def scrap_source(self, content, category_name='Sin categoría'):
         soup = BeautifulSoup(content, 'html.parser')
         products_section = soup.find('section', class_='grilla-productos')
         if products_section is None:
-            print(soup)
+            # print(soup)
             return
 
         for product in products_section.find_all(class_='item-producto'):
@@ -92,7 +113,7 @@ class LaCaseritaScraper(BaseScraper):
 
         if code in self.codes:
             # raise Exception(f'Repeated code: {code}')
-            print(f'Repeated code: {code}, {category_name}')
+            # print(f'Repeated code: {code}, {category_name}')
             return
 
         price_elements = item.find_all('span', class_='gradiente-number-con-peso')
