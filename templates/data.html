@@ -136,6 +136,28 @@
 				<p>Demorará alrededor de 1 minuto</p>
 			</form>
 		</div>
+
+		<br>
+		<br>
+
+		{% if lider_scrape %}
+			<div>
+				<p>Status última descarga de Lider: {{lider_scrape.status}}<p>
+				{% if lider_scrape.status == "SUCCESS" %}
+					<a href="/scrapes/lider/{{lider_scrape.filename}}">
+						<button type="button" class="btn btn-primary">Descargar último archivo con datos de Lider</button>
+					</a>
+				{% endif %}
+			</div>
+		{% endif %}
+		<div>
+			<form class="row" action="/scrapes/lider/" method="post">
+				<div class="col-md-5">
+					<button type="submit" class="btn btn-warning">Obtener datos de Lider nuevamente</button>
+				</div>
+				<p>Demorará alrededor de 1 minuto</p>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

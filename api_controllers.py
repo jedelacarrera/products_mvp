@@ -3,8 +3,8 @@ from datetime import datetime
 import os
 from flask import abort
 import time
-from scrapers import CentralMayoristaScraper, LaCaseritaScraper, AlviScraper
-from constants import CentralMayorista, LaCaserita, Alvi, Walmart
+from scrapers import CentralMayoristaScraper, LaCaseritaScraper, AlviScraper, LiderScraper
+from constants import CentralMayorista, LaCaserita, Alvi, Walmart, Lider
 
 # GET controllers
 
@@ -118,6 +118,8 @@ def scrape(provider, element):
         scraper = LaCaseritaScraper()
     elif provider == Alvi.url_name:
         scraper = AlviScraper()
+    elif provider == Lider.url_name:
+        scraper = LiderScraper()
     else:
         raise Exception('Proveedor no disponible')
 

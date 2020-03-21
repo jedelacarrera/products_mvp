@@ -4,7 +4,7 @@ import time
 from flask import Flask, jsonify, request, redirect, render_template, redirect, url_for, send_from_directory
 from threading import Thread
 
-from constants import CentralMayorista, LaCaserita, Alvi, Walmart, TRANSLATIONS
+from constants import CentralMayorista, LaCaserita, Alvi, Walmart, Lider, TRANSLATIONS
 
 app = Flask(__name__)
 
@@ -52,7 +52,8 @@ def update_data():
         file=sorted([file for file in os.listdir('tmp') if '.csv' in file])[-1],
         mayorista_scrape=api_controllers.get_last_scrape(CentralMayorista.name),
         caserita_scrape=api_controllers.get_last_scrape(LaCaserita.name),
-        alvi_scrape=api_controllers.get_last_scrape(Alvi.name)
+        alvi_scrape=api_controllers.get_last_scrape(Alvi.name),
+        lider_scrape=api_controllers.get_last_scrape(Lider.name)
     )
 
 @app.route('/data/<file>', methods=['GET'])

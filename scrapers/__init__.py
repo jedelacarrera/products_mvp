@@ -1,3 +1,4 @@
 from scrapers.central_mayorista_scraper import CentralMayoristaScraper
 from scrapers.la_caserita_scraper import LaCaseritaScraper
 from scrapers.alvi_scraper import AlviScraper
+from scrapers.lider_scraper import LiderScraper
