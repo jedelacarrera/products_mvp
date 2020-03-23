@@ -53,7 +53,7 @@ def update_data():
         mayorista_scrape=api_controllers.get_last_scrape(CentralMayorista.name),
         caserita_scrape=api_controllers.get_last_scrape(LaCaserita.name),
         alvi_scrape=api_controllers.get_last_scrape(Alvi.name),
-        lider_scrape=api_controllers.get_last_scrape(Lider.name)
+        lider_scrape=api_controllers.get_last_scrape(Lider.name),
     )
 
 @app.route('/data/<file>', methods=['GET'])

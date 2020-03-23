@@ -1,45 +1,11 @@
-import time
 from datetime import datetime
 import os
 import requests
 from bs4 import BeautifulSoup
 from .base_scraper import BaseScraper
 
-class LiderCategory:
-    base_url = 'https://www.lider.cl/supermercado/category/'
-    products_per_page = 100
-
-    def __init__(self, id, name, subname):
-        self.id = id
-        self.name = name
-        self.pagessubname = subname
-
-    @property
-    def urls(self):
-        url = f'{self.base_url}{self.name}/id/{self.id}/?product_list_limit=36&p='
-        return [url + str(page+1) for page in range(self.pages)]
-    
 
 class LiderScraper(BaseScraper):
-    categories = [
-        LiderCategory(3, 'limpieza', 7),
-        LiderCategory(4, 'cuidado-personal', 6),
-        LiderCategory(5, 'despensa', 8),
-        LiderCategory(6, 'lacteos-y-frambres', 4),
-        LiderCategory(8, 'frescos-y-congelados', 3),  # Por si acaso, queda muy justo con 2
-        LiderCategory(9, 'bebidas-y-licores', 3),
-        LiderCategory(10, 'confites-y-cocktail', 1),
-        LiderCategory(11, 'bazar', 1),
-    ]
-
-    cookies = {
-        'setea_comuna': '43',
-        'setea_entrega': 'true',
-        'setea_region': '13',
-        'setea_tipo_entrega': '1',
-        'store': '8000-26-1',
-    }
-
     base_url = 'https://www.lider.cl'
 
     def __init__(self, destination_folder='tmp/scrapes/lider/'):
@@ -49,30 +15,22 @@ class LiderScraper(BaseScraper):
 
         self.products = []
         self.codes = set()
-
-    @property
-    def urls(self):
-        urls = []
-        for category in self.categories:
-            urls += category.urls
-        return urls
+        self.products_per_page = 1000
+        self.aprox_total_products = 10000
+        self.total_pages = self.aprox_total_products // self.products_per_page
 
     def scrape(self):
-        response = requests.get('https://www.lider.cl/supermercado/category/?No=400&isNavRequest=Yes&Nrpp=400&page=2')
-        soup = BeautifulSoup(response.content, 'html.parser')
-        with open('fileeeee.html', 'w') as file:
-            file.write(soup.prettify())
-        self.scrap_source(response.content)
-        return self.save_products()
-        # responses = [requests.get(url, cookies=self.cookies) for url in self.urls]
-        # category_names = []
-        # for category in self.categories:
-        #     for i in range(category.pages):
-        #         category_names.append(category.name + '_' + str(i+1))
-        # for response, category_name in zip(responses, category_names):
-        #     self.scrap_source(response.content, category_name)
+        common_url = 'https://www.lider.cl/supermercado/category/?No={0}&isNavRequest=Yes&Nrpp={1}&page={2}'
+        urls = []
+        for i in range(self.total_pages):
+            url = common_url.format(self.products_per_page*i, self.products_per_page, i+1)
+            response = requests.get(url)
+            self.scrap_source(response.content)
+            print(url, '. Products: ', len(self.products))
 
-    def scrap_source(self, content, category_name='Sin categoría'):
+        return self.save_products()
+
+    def scrap_source(self, content):
         soup = BeautifulSoup(content, 'html.parser')
         products_section = soup.find('div', id='content-prod-boxes')
         if products_section is None:
@@ -81,12 +39,12 @@ class LiderScraper(BaseScraper):
 
         for product in products_section.find_all('div', class_='box-product'):
             try:
-                self.add_product(product, category_name)
+                self.add_product(product)
             except Exception as e:
                 print(e)
                 print(product.prettify())
 
-    def add_product(self, item, category_name):
+    def add_product(self, item):
         condition, sale_price = '', ''
 
         # gtmProductClick('Pack 12 Shampoo Head &amp; Shoulders Purificación Capilar Carbón Activado','BNDLSKU_20000087','Exclusivo Internet','Especial Packs','CLP','/supermercado/product/Exclusivo-Internet-Pack-12-Shampoo-Head-Shoulders-Purificación-Capilar-Carbón-Activado/BNDLSKU_20000087','-1')
@@ -94,7 +52,7 @@ class LiderScraper(BaseScraper):
         name, code, brand, category, _, url, _ = info
 
         if code in self.codes:
-            print(f'Repeated code: {code}, {category_name}')
+            print(f'Repeated code: {code}, {category}')
             return
 
         if brand == 'Exclusivo Internet':
