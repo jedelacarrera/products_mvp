@@ -17,6 +17,7 @@ venv.bak/
 
 # tmp/*
 *.csv
+*.csv#
 *.xls
 *.pdf
 !00_seed.csv
