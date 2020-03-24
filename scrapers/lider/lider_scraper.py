@@ -5,8 +5,6 @@ from bs4 import BeautifulSoup
 from scrapers.base_scraper import BaseScraper
 from .lider_urls import LIDER_URLS
 
-import time
-
 
 class LiderScraper(BaseScraper):
     base_url = 'https://www.lider.cl'
@@ -34,11 +32,10 @@ class LiderScraper(BaseScraper):
         return self.save_products()
 
     def scrape(self):  # By categories, if lider changes or adds categories, it will fail
-        initial_time = time.time()
         for lider_url in LIDER_URLS:
             response = requests.get(lider_url.url)
             self.scrap_source(response.content, lider_url)
-            print(lider_url, 'Products: ', len(self.products), time.time() - initial_time)
+            print(lider_url, 'Products: ', len(self.products))
 
         return self.save_products()
 
@@ -64,7 +61,7 @@ class LiderScraper(BaseScraper):
         name, code, brand, _, _, url, _ = info
 
         if code in self.codes:
-            print(f'Repeated code: {code}, {lider_url.category}')
+            print(f'Repeated code: {code}, {lider_url}')
             return
 
         if brand == 'Exclusivo Internet':
