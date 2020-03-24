@@ -3,7 +3,7 @@ from datetime import datetime
 import os
 import requests
 from bs4 import BeautifulSoup
-from .base_scraper import BaseScraper
+from scrapers.base_scraper import BaseScraper
 
 class LaCaseritaCategory:
     base_url = 'https://www.caserita.cl/catalog/category/view/s/'

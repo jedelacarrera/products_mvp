@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from .base_scraper import BaseScraper
+from scrapers.base_scraper import BaseScraper
 
 
 class CentralMayoristaScraper(BaseScraper):
@@ -38,7 +38,7 @@ class CentralMayoristaScraper(BaseScraper):
         }
 
         if os.environ.get('FLASK_ENV') == 'development':
-            CHROMEDRIVER_PATH = os.path.dirname(os.path.abspath(__file__)) + '/chromedriver'
+            CHROMEDRIVER_PATH = os.path.dirname(os.path.abspath(__file__)) + '/../chromedriver'
 
         else:
             self.options.binary_location = os.environ.get('GOOGLE_CHROME_BIN', "chromedriver")

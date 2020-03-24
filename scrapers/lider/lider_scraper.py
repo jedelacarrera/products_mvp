@@ -2,7 +2,10 @@ from datetime import datetime
 import os
 import requests
 from bs4 import BeautifulSoup
-from .base_scraper import BaseScraper
+from scrapers.base_scraper import BaseScraper
+from .lider_urls import LIDER_URLS
+
+import time
 
 
 class LiderScraper(BaseScraper):
@@ -19,7 +22,7 @@ class LiderScraper(BaseScraper):
         self.aprox_total_products = 10000
         self.total_pages = self.aprox_total_products // self.products_per_page
 
-    def scrape(self):
+    def scrape_original(self):  # Not possible to get categories
         common_url = 'https://www.lider.cl/supermercado/category/?No={0}&isNavRequest=Yes&Nrpp={1}&page={2}'
         urls = []
         for i in range(self.total_pages):
@@ -30,29 +33,38 @@ class LiderScraper(BaseScraper):
 
         return self.save_products()
 
-    def scrap_source(self, content):
+    def scrape(self):  # By categories, if lider changes or adds categories, it will fail
+        initial_time = time.time()
+        for lider_url in LIDER_URLS:
+            response = requests.get(lider_url.url)
+            self.scrap_source(response.content, lider_url)
+            print(lider_url, 'Products: ', len(self.products), time.time() - initial_time)
+
+        return self.save_products()
+
+    def scrap_source(self, content, lider_url):
         soup = BeautifulSoup(content, 'html.parser')
         products_section = soup.find('div', id='content-prod-boxes')
         if products_section is None:
-            print(soup)
+            print('No products in', lider_url)
             return
 
         for product in products_section.find_all('div', class_='box-product'):
             try:
-                self.add_product(product)
+                self.add_product(product, lider_url)
             except Exception as e:
                 print(e)
                 print(product.prettify())
 
-    def add_product(self, item):
+    def add_product(self, item, lider_url):
         condition, sale_price = '', ''
 
         # gtmProductClick('Pack 12 Shampoo Head &amp; Shoulders Purificación Capilar Carbón Activado','BNDLSKU_20000087','Exclusivo Internet','Especial Packs','CLP','/supermercado/product/Exclusivo-Internet-Pack-12-Shampoo-Head-Shoulders-Purificación-Capilar-Carbón-Activado/BNDLSKU_20000087','-1')
         info = item.find('a', class_='product-link').get('onclick')[17:-2].replace("','", '___').split('___')
-        name, code, brand, category, _, url, _ = info
+        name, code, brand, _, _, url, _ = info
 
         if code in self.codes:
-            print(f'Repeated code: {code}, {category}')
+            print(f'Repeated code: {code}, {lider_url.category}')
             return
 
         if brand == 'Exclusivo Internet':
@@ -81,7 +93,7 @@ class LiderScraper(BaseScraper):
             sale_price = int(total_price // minimium)
             condition += f'Oferta: Mínimo {minimium}'
 
-        product = Product(name, brand, normal_price, sale_price, price_unit, image_url, code, condition, item.text, url, category)
+        product = Product(name, brand, normal_price, sale_price, price_unit, image_url, code, condition, item.text, url, lider_url)
         self.products.append(product)
         self.codes.add(code)
 
@@ -97,7 +109,7 @@ class LiderScraper(BaseScraper):
 
 
 class Product():
-    def __init__(self, name, brand, price, sale_price, price_unit, image_url, code, condition='', all_info='', url='', category='La Caserita'):
+    def __init__(self, name, brand, price, sale_price, price_unit, image_url, code, condition='', all_info='', url='', lider_url=None):
         super(Product, self).__init__()
         self.name = name
         self.brand = brand
@@ -109,10 +121,11 @@ class Product():
         self.condition = condition
         self.all_info = ''
         self.url = url
-        self.category = category
+        self.category = lider_url.category
+        self.subcategory = lider_url.subcategory
 
     def __str__(self):
-        return f'{self.code};{self.brand};{self.name};Lider;{self.url};{self.price_unit};;{self.category};;{self.condition};{self.price};{self.sale_price};{self.image_url};{self.all_info}\n'
+        return f'{self.code};{self.brand};{self.name};Lider;{self.url};{self.price_unit};;{self.category};{self.subcategory};{self.condition};{self.price};{self.sale_price};{self.image_url};{self.all_info}\n'
 
 
 if __name__ == '__main__':
