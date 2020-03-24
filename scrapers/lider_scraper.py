@@ -101,8 +101,8 @@ class Product():
         super(Product, self).__init__()
         self.name = name
         self.brand = brand
-        self.price = price.split(',)[0] if type(price) == str else int(price//1)
-        self.sale_price = sale_price.split(',)[0] if type(sale_price) == str else int(sale_price//1)
+        self.price = price.split(',')[0] if type(price) == str else int(price//1)
+        self.sale_price = sale_price.split(',')[0] if type(sale_price) == str else int(sale_price//1)
         self.price_unit = price_unit
         self.image_url = image_url
         self.code = code
