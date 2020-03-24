@@ -14,9 +14,14 @@ class Walmart:
 	name = 'Walmart'
 	url_name = 'walmart'
 
+class Lider:
+	name = 'Lider'
+	url_name = 'lider'
+
 TRANSLATIONS = {
 	CentralMayorista.url_name: CentralMayorista.name,
 	LaCaserita.url_name: LaCaserita.name,
 	Alvi.url_name: Alvi.name,
 	Walmart.url_name: Walmart.name,
+	Lider.url_name: Lider.name,
 }
