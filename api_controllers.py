@@ -9,14 +9,14 @@ from constants import CentralMayorista, LaCaserita, Alvi, Walmart, Lider
 # GET controllers
 
 def get_products(search=''):
-    products = Product.query.filter(Product.description.ilike('%' + search + '%')).order_by(Product.category, Product.description).limit(2000).all()
+    products = Product.query.filter(Product.description.ilike('%' + search + '%')).order_by(Product.subcategory, Product.description).limit(2000).all()
     products = list(filter(lambda product: len(product.offers) > 0 and product.best_price != None, products))
     categories = {}
     for product in products:
-        if categories.get(product.category.lower()):
-            categories.get(product.category.lower()).append(product.dict)
+        if categories.get(product.subcategory.lower()):
+            categories.get(product.subcategory.lower()).append(product.dict)
         else:
-            categories[product.category.lower()] = [product.dict]
+            categories[product.subcategory.lower()] = [product.dict]
     return {"categories": categories}
 
 def get_offers_by_product(pid):

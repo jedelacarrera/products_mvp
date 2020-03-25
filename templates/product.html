@@ -6,14 +6,15 @@
 			<img src="{{product.url}}" onerror="this.src='/static/unknown_image.png'">
 		</div>
 		<div class="product-content">
-			<p>{{product.brand}}</p>
+			<p class="product-brand">{{product.brand}}</p>
 			<p class="product-description">{{product.description}}</p>
 			{% if product.complete_description %}
 				<p>{{product.complete_description}}</p>
 			{% endif %}
 			<hr>
-			<p>{{product.quantity}}</p>
+			<p class="product-quantity">{{product.quantity}}</p>
 			<p>{{product.category}}</p>
+			<p>{{product.subcategory}}</p>
 		</div>
 	</div>
 	<hr>
