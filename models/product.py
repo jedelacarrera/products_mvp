@@ -54,9 +54,9 @@ class Product(db.Model):
 
     @property
     def similar_products(self):
-        if not self.category:
+        if not self.subcategory:
             return []
-        products = Product.query.filter_by(category=self.category).limit(30).all()
+        products = Product.query.filter_by(subcategory=self.subcategory).limit(30).all()
         products = list(filter(lambda prod: prod.id != self.id, products))
         products = list(filter(lambda product: len(product.offers) > 0 and product.best_price != None, products))
         random.shuffle(products)

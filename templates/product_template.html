@@ -6,7 +6,9 @@
                 <img class="card-img-top" src="{{product.url}}" onerror="this.src='/static/unknown_image.png'" width="100px">
               </div>
               <div class="card-body">
+                <p class="card-brand">{{ product.brand }}</p>
                 <h3 class="card-title">{{ product.description }}</h3>
+                <p class="card-quantity">{{ product.quantity }}</p>
                 <div class="best-price">
                     <p class="card-text price">{{ product.best_price.price|format_price }}</p>
                     <img src="{{ url_for('static', filename=product.best_price.provider.url) }}"/>

@@ -51,9 +51,26 @@ h4 {
 	font-size: 16px;
 }
 
-.card h3 {
+.card-brand {
+	color: #065695;
+	font-weight: 900;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.card-title {
 	font-size: 1.25rem;
 	font-weight: 501;
+	color: #3d3d3d;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.card-quantity {
+	text-align: center;
+	color: #333;
+	font-weight: 900;
+	margin-top: 5px;
 }
 
 .col-sm-4 {
@@ -106,8 +123,6 @@ h2 {
 	align-items: center;
 }
 .offer-image img {
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
 	width: 100%;
 }
 .offer-content {
@@ -197,11 +212,22 @@ h2 {
 .product-content p {
 	color: grey;
 	font-size: 24px;
+	margin-bottom: 8px;
+}
+
+p.product-brand {
+	color: #065695;
+	font-weight: 900;
 }
 
 p.product-description {
 	color: black;
 	font-size: 2em;
+}
+
+p.product-quantity {
+	color: #333;
+	font-weight: 900;
 }
 
 h3 {
