@@ -4,12 +4,12 @@ import random
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(120), unique=True, index=True)
-    brand = db.Column(db.String(120), unique=False, nullable=True)
-    description = db.Column(db.Text, unique=False, nullable=True)
+    brand = db.Column(db.String(120), unique=False, nullable=True, index=True)
+    description = db.Column(db.Text, unique=False, nullable=True, index=True)
     complete_description = db.Column(db.Text, unique=False, nullable=True)
     quantity = db.Column(db.String(120), unique=False, nullable=True)
-    category = db.Column(db.String(120), index=True, unique=False, nullable=True)
-    subcategory = db.Column(db.String(120), unique=False, nullable=True)
+    category = db.Column(db.String(120), unique=False, nullable=True)
+    subcategory = db.Column(db.String(120), unique=False, nullable=True, index=True)
     url = db.Column(db.Text, unique=False, nullable=True)
 
     offers = db.relationship('Offer', backref='product', lazy=True, cascade = "all,delete")

@@ -5,11 +5,26 @@ from flask import abort
 import time
 from scrapers import CentralMayoristaScraper, LaCaseritaScraper, AlviScraper, LiderScraper
 from constants import CentralMayorista, LaCaserita, Alvi, Walmart, Lider
+from sqlalchemy import or_
 
 # GET controllers
 
 def get_products(search=''):
-    products = Product.query.filter(Product.description.ilike('%' + search + '%')).order_by(Product.subcategory, Product.description).limit(2000).all()
+    if search:
+        products = Product.query.filter(
+            or_(
+                Product.description.ilike('%' + search + '%'),
+                Product.brand.ilike('%' + search + '%')
+            )
+        ).order_by(
+            Product.subcategory,
+            Product.description
+        ).limit(2000).all()
+    else:
+        products = Product.query.order_by(
+            Product.subcategory,
+            Product.description
+        ).limit(2000).all()
     products = list(filter(lambda product: len(product.offers) > 0 and product.best_price != None, products))
     categories = {}
     for product in products:
