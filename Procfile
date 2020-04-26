@@ -1,3 +1,3 @@
 release: python3 seed.py
-web: gunicorn -w 2 main:app
+web: gunicorn -w 1 main:app
 
