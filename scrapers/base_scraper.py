@@ -1,7 +1,7 @@
 class BaseScraper:
-	def scrape(self):
-		raise Exception('Not implemented')
+    # pylint: disable=no-self-use
+    def scrape(self):
+        raise Exception("Not implemented")
 
-	def finish_session(self):
-		return
-		
+    def finish_session(self):
+        return

@@ -1,31 +1,46 @@
+# pylint: disable=no-member
 from models import Product, Offer, Provider, Scrape, db
 from datetime import datetime
 import os
 from flask import abort
 import time
-from scrapers import CentralMayoristaScraper, LaCaseritaScraper, AlviScraper, LiderScraper
+from scrapers import (
+    CentralMayoristaScraper,
+    LaCaseritaScraper,
+    AlviScraper,
+    LiderScraper,
+)
 from constants import CentralMayorista, LaCaserita, Alvi, Walmart, Lider
 from sqlalchemy import or_
 
 # GET controllers
 
-def get_products(search=''):
+
+def get_products(search=""):
     if search:
-        products = Product.query.filter(
-            or_(
-                Product.description.ilike('%' + search + '%'),
-                Product.brand.ilike('%' + search + '%')
+        products = (
+            Product.query.filter(
+                or_(
+                    Product.description.ilike("%" + search + "%"),
+                    Product.brand.ilike("%" + search + "%"),
+                )
             )
-        ).order_by(
-            Product.subcategory,
-            Product.description
-        ).limit(2000).all()
+            .order_by(Product.subcategory, Product.description)
+            .limit(2000)
+            .all()
+        )
     else:
-        products = Product.query.order_by(
-            Product.subcategory,
-            Product.description
-        ).limit(2000).all()
-    products = list(filter(lambda product: len(product.offers) > 0 and product.best_price != None, products))
+        products = (
+            Product.query.order_by(Product.subcategory, Product.description)
+            .limit(2000)
+            .all()
+        )
+    products = list(
+        filter(
+            lambda product: len(product.offers) > 0 and product.best_price != None,
+            products,
+        )
+    )
     categories = {}
     for product in products:
         if categories.get(product.subcategory.lower()):
@@ -34,6 +49,7 @@ def get_products(search=''):
             categories[product.subcategory.lower()] = [product.dict]
     return {"categories": categories}
 
+
 def get_offers_by_product(pid):
     product = Product.query.filter_by(id=pid).first()
     if product is None:
@@ -41,15 +57,17 @@ def get_offers_by_product(pid):
     return {
         "offers": [offer.dict for offer in product.offers],
         "product": product.dict,
-        "similar_products": [prod.dict for prod in product.similar_products]
+        "similar_products": [prod.dict for prod in product.similar_products],
     }
+
 
 def get_providers():
     return {"providers": [provider.dict for provider in Provider.query.all()]}
 
+
 def get_product_from_line(line):
     # Código, Marca, Descripción, Proveedor, Fuente, Peso, Descripción Completa, Categoría, Subcategoría, Observación, Precio Normal, Precio Oferta, URL Foto Producto.
-    splitted_line = line.split(';')
+    splitted_line = line.split(";")
     product = Product.query.filter_by(code=splitted_line[0]).first()
     if product:
         return product
@@ -70,38 +88,42 @@ def get_product_from_line(line):
     # db.session.commit()
     return product
 
+
 def create_offer(line):
     product = get_product_from_line(line)
 
-    splitted_line = line.split(';')
+    splitted_line = line.split(";")
     provider = Provider.query.filter_by(name=splitted_line[3].strip()).first()
     if not provider:
         raise Exception(f'Provider "{splitted_line[3]}" does not exist')
 
     product.offers.append(
-    Offer(
-        # product_id=product_id,
-        provider_id=provider.id,
-        source=splitted_line[4] or None,
-        comment=splitted_line[9] or None,
-        price=splitted_line[10].replace('$', '').replace('.', '') or None,
-        sale_price=splitted_line[11].replace('$', '').replace('.', '') or None,
-    ))
+        Offer(
+            # product_id=product_id,
+            provider_id=provider.id,
+            source=splitted_line[4] or None,
+            comment=splitted_line[9] or None,
+            price=splitted_line[10].replace("$", "").replace(".", "") or None,
+            sale_price=splitted_line[11].replace("$", "").replace(".", "") or None,
+        )
+    )
 
     # db.session.add(offer)
     # db.session.commit()
 
+
 def handle_file(filename):
-    with open(filename, 'r', encoding="utf-8", errors='ignore') as file:
+    with open(filename, "r", encoding="utf-8", errors="ignore") as file:
         file.readline()
         for index, line in enumerate(file.readlines()):
             try:
-                product_id = create_offer(line)
+                create_offer(line)
             except Exception as error:
                 # raise error
-                return f'Line {index + 2}: {str(error)}'
+                return f"Line {index + 2}: {str(error)}"
 
     db.session.commit()
+
 
 def update_data(filename):
     offers = Offer.query.all()
@@ -111,20 +133,27 @@ def update_data(filename):
     db.session.commit()
 
     result = handle_file(filename)
-    print('File handled')
+    print("File handled")
     print(result)
     return result
 
+
 def get_last_scrape(provider_name):
     provider = Provider.query.filter_by(name=provider_name).first()
-    return Scrape.query.order_by(Scrape.id.desc()).filter_by(provider_id=provider.id).first()
+    return (
+        Scrape.query.order_by(Scrape.id.desc())
+        .filter_by(provider_id=provider.id)
+        .first()
+    )
+
 
 def new_scrape(provider_name):
     provider = Provider.query.filter_by(name=provider_name).first()
-    element = Scrape(status='STARTED', provider_id=provider.id)
+    element = Scrape(status="STARTED", provider_id=provider.id)
     db.session.add(element)
     db.session.commit()
     return element
+
 
 def scrape(provider, element):
     if provider == CentralMayorista.url_name:
@@ -136,16 +165,16 @@ def scrape(provider, element):
     elif provider == Lider.url_name:
         scraper = LiderScraper()
     else:
-        raise Exception('Proveedor no disponible')
+        raise Exception("Proveedor no disponible")
 
     try:
         filename = scraper.scrape()
         scraper.finish_session()
 
         element.filename = filename
-        element.status = 'SUCCESS'
+        element.status = "SUCCESS"
     except Exception as e:
-        element.status = 'ERROR: ' + str(e)
+        element.status = "ERROR: " + str(e)
 
     element.updated_at = str(datetime.now())
     db.session.add(element)
