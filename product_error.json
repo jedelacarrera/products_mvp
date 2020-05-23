@@ -1,0 +1,499 @@
+{
+    "productId": "13841",
+    "productName": "Chocolate Costa Costanuss, nougat, 145 g",
+    "brand": "Costa",
+    "brandId": 2000288,
+    "brandImageUrl": null,
+    "linkText": "chocolate-nougat-costanuss-145-g",
+    "productReference": "1652948",
+    "categoryId": "74",
+    "productTitle": "Chocolate Costa Costanuss, nougat, 145 g | Jumbo.cl",
+    "metaTagDescription": "Encuentra Chocolate Costanuss nougat Costa 145 g y la mejor variedad de productos Costa en Jumbo.cl",
+    "releaseDate": "2017-06-29T00:00:00",
+    "clusterHighlights": {
+        "805": "Todos los chocolates 805",
+        "1258": "Chocolates Costa | Jumbo.cl",
+        "1935": "Galletas | Jumbo.cl",
+        "1968": "Superday Chocolates",
+        "2618": "Chocolates | Jumbo.cl",
+        "2685": "2685 OFDS",
+        "3432": "Chocolates 3432 Costa y Ambrosoli",
+        "4335": "Todo Galletas 4335 Golosinas y choco",
+        "4348": "Chocolates costa 4348",
+        "4606": "vitrina 4606 chocolate Costa y Ambrosoli",
+        "4704": "Desp Costa 4704",
+        "4756": "DES COSTA 231219",
+        "5387": "5387 Desp Carozzi Galletas y Cereales"
+    },
+    "productClusters": {
+        "805": "Todos los chocolates 805",
+        "1022": "Google Shopping",
+        "1059": "All Products",
+        "1241": "SCRAPERDesayuno",
+        "1258": "Chocolates Costa | Jumbo.cl",
+        "1935": "Galletas | Jumbo.cl",
+        "1968": "Superday Chocolates",
+        "2618": "Chocolates | Jumbo.cl",
+        "2685": "2685 OFDS",
+        "3432": "Chocolates 3432 Costa y Ambrosoli",
+        "4335": "Todo Galletas 4335 Golosinas y choco",
+        "4348": "Chocolates costa 4348",
+        "4606": "vitrina 4606 chocolate Costa y Ambrosoli",
+        "4704": "Desp Costa 4704",
+        "4756": "DES COSTA 231219",
+        "5387": "5387 Desp Carozzi Galletas y Cereales"
+    },
+    "searchableClusters": {
+        "805": "Todos los chocolates 805",
+        "1258": "Chocolates Costa | Jumbo.cl",
+        "1935": "Galletas | Jumbo.cl",
+        "1968": "Superday Chocolates",
+        "2618": "Chocolates | Jumbo.cl",
+        "2685": "2685 OFDS",
+        "3432": "Chocolates 3432 Costa y Ambrosoli",
+        "4335": "Todo Galletas 4335 Golosinas y choco",
+        "4348": "Chocolates costa 4348",
+        "4606": "vitrina 4606 chocolate Costa y Ambrosoli",
+        "4704": "Desp Costa 4704",
+        "4756": "DES COSTA 231219",
+        "5387": "5387 Desp Carozzi Galletas y Cereales"
+    },
+    "categories": [
+        "/Desayuno y Dulces/Confitería/Chocolates y Mazapán/",
+        "/Desayuno y Dulces/Confitería/",
+        "/Desayuno y Dulces/"
+    ],
+    "categoriesIds": [
+        "/61/63/74/",
+        "/61/63/",
+        "/61/"
+    ],
+    "link": "https://jumbo.myvtex.com/chocolate-nougat-costanuss-145-g/p",
+    "JumboAhora": [
+        "Si"
+    ],
+    "Características": [
+        "JumboAhora"
+    ],
+    "ProductData": [
+        {
+            "allow_notes": true,
+            "allow_substitute": true,
+            "cart_limit": "12",
+            "brandName": "Costa",
+            "brandEcomId": "2000288",
+            "measurement_unit": "un",
+            "unit_multiplier": 1,
+            "measurement_unit_un": "kg",
+            "unit_multiplier_un": 0.145,
+            "measurement_unit_selector": false,
+            "cart_limit_express_delivery": "12"
+        }
+    ],
+    "SkuData": [
+        {
+            "48702": {
+                "ref_id": "1652948",
+                "cart_limit": 12,
+                "allow_notes": true,
+                "allow_substitute": true,
+                "measurement_unit": "un",
+                "unit_multiplier": 1,
+                "promotions": [
+                    "12369013",
+                    "12369562",
+                    "12370112",
+                    "31500841",
+                    "33529477",
+                    "56536113",
+                    "56538346",
+                    "68869289",
+                    "68870236",
+                    "75017808",
+                    "75019848",
+                    "80203682",
+                    "80204505",
+                    "86290011",
+                    "86290012",
+                    "98082508",
+                    "101530149",
+                    "117481043",
+                    "119565231",
+                    "120566254",
+                    "126855731",
+                    "138577747",
+                    "138662228",
+                    "143460067",
+                    "144259627",
+                    "144259628",
+                    "151478564"
+                ],
+                "measurement_unit_un": "kg",
+                "unit_multiplier_un": 0.145,
+                "measurement_unit_selector": false,
+                "release_data": {
+                    "date_release": "06-12-2016 00:00",
+                    "date_release_end": "24-12-2016 00:00",
+                    "is_new": false
+                },
+                "promotionData": {
+                    "promotionName": false,
+                    "promotionShortDescription": false,
+                    "promotionDescription": false,
+                    "promotionFeature": false
+                }
+            }
+        }
+    ],
+    "Configuraciones": [
+        "ProductData",
+        "SkuData"
+    ],
+    "Flag Nutricional": [
+        "Alto en Grasas Saturadas",
+        "Alto en Azúcares",
+        "Alto en Calorías"
+    ],
+    "Información Nutricional (por 100 g / por porción)": [
+        "Flag Nutricional"
+    ],
+    "allSpecifications": [
+        "JumboAhora",
+        "ProductData",
+        "SkuData",
+        "Flag Nutricional"
+    ],
+    "allSpecificationsGroups": [
+        "Características",
+        "Configuraciones",
+        "Información Nutricional (por 100 g / por porción)"
+    ],
+    "description": "Chocolate Costanuss nougat Costa 145 gr",
+    "items": [
+        {
+            "itemId": "13698",
+            "name": "Chocolate nougat Costanuss 145 g",
+            "nameComplete": "Chocolate Costa Costanuss, nougat, 145 g Chocolate nougat Costanuss 145 g",
+            "complementName": "",
+            "ean": "7802215101366",
+            "measurementUnit": "un",
+            "unitMultiplier": 1,
+            "modalType": "Colchões",
+            "isKit": false,
+            "images": [
+                {
+                    "imageId": "172996",
+                    "imageLabel": "Principal",
+                    "imageTag": "<img src=\"~/arquivos/ids/172996-#width#-#height#/1652948.jpg?v=636343584425170000\" width=\"#width#\" height=\"#height#\" alt=\"1652948-1\" id=\"\" />",
+                    "imageUrl": "https://jumbo.vteximg.com.br/arquivos/ids/172996/1652948.jpg?v=636343584425170000",
+                    "imageText": "1652948-1",
+                    "imageLastModified": "2017-06-29T18:40:42.5170000Z"
+                }
+            ],
+            "sellers": [
+                {
+                    "sellerId": "1",
+                    "sellerName": "Jumbo Chile",
+                    "addToCartLink": "https://jumbo.myvtex.com/checkout/cart/add?sku=13698&qty=1&seller=1&sc=11&price=0&cv=3fc35ed9ef9bce7764bb67e180485978_&sc=11",
+                    "sellerDefault": true,
+                    "commertialOffer": {
+                        "DeliverySlaSamplesPerRegion": {},
+                        "Installments": [],
+                        "DiscountHighLight": [],
+                        "GiftSkuIds": [],
+                        "Teasers": [],
+                        "BuyTogether": [],
+                        "ItemMetadataAttachment": [],
+                        "Price": 0,
+                        "ListPrice": 0,
+                        "PriceWithoutDiscount": 0,
+                        "RewardValue": 0,
+                        "PriceValidUntil": null,
+                        "AvailableQuantity": 0,
+                        "Tax": 0,
+                        "DeliverySlaSamples": [],
+                        "GetInfoErrorMessage": "Code: withoutStock Status:error Message: El ítem Chocolate Costa Costanuss, nougat, 145 g Chocolate nougat Costanuss 145 g no tiene inventario y fue removido del carrito",
+                        "CacheVersionUsedToCallCheckout": "3fc35ed9ef9bce7764bb67e180485978_",
+                        "PaymentOptions": null
+                    }
+                }
+            ],
+            "Videos": [],
+            "estimatedDateArrival": null
+        },
+        {
+            "itemId": "48702",
+            "name": "Chocolate Costa Costanuss, nougat, 145 g",
+            "nameComplete": "Chocolate Costa Costanuss, nougat, 145 g",
+            "complementName": "",
+            "ean": "7802215101366",
+            "referenceId": [
+                {
+                    "Key": "RefId",
+                    "Value": "1652948"
+                }
+            ],
+            "measurementUnit": "un",
+            "unitMultiplier": 1,
+            "modalType": "Colchões",
+            "isKit": false,
+            "images": [
+                {
+                    "imageId": "251198",
+                    "imageLabel": "Principal",
+                    "imageTag": "<img src=\"~/arquivos/ids/251198-#width#-#height#/1652948.jpg?v=636691712861030000\" width=\"#width#\" height=\"#height#\" alt=\"1652948\" id=\"\" />",
+                    "imageUrl": "https://jumbo.vteximg.com.br/arquivos/ids/251198/1652948.jpg?v=636691712861030000",
+                    "imageText": "1652948",
+                    "imageLastModified": "2018-08-06T16:54:46.1030000Z"
+                }
+            ],
+            "sellers": [
+                {
+                    "sellerId": "1",
+                    "sellerName": "Jumbo Chile",
+                    "addToCartLink": "https://jumbo.myvtex.com/checkout/cart/add?sku=48702&qty=1&seller=1&sc=11&price=164900&cv=3fc35ed9ef9bce7764bb67e180485978_&sc=11",
+                    "sellerDefault": true,
+                    "commertialOffer": {
+                        "DeliverySlaSamplesPerRegion": {
+                            "0": {
+                                "DeliverySlaPerTypes": [],
+                                "Region": null
+                            }
+                        },
+                        "Installments": [
+                            {
+                                "Value": 1649,
+                                "InterestRate": 0,
+                                "TotalValuePlusInterestRate": 1649,
+                                "NumberOfInstallments": 1,
+                                "PaymentSystemName": "JumboOneClick",
+                                "PaymentSystemGroupName": "custom201PaymentGroupPaymentGroup",
+                                "Name": "JumboOneClick à vista"
+                            },
+                            {
+                                "Value": 1649,
+                                "InterestRate": 0,
+                                "TotalValuePlusInterestRate": 1649,
+                                "NumberOfInstallments": 1,
+                                "PaymentSystemName": "CatOneClick",
+                                "PaymentSystemGroupName": "custom202PaymentGroupPaymentGroup",
+                                "Name": "CatOneClick à vista"
+                            },
+                            {
+                                "Value": 1649,
+                                "InterestRate": 0,
+                                "TotalValuePlusInterestRate": 1649,
+                                "NumberOfInstallments": 1,
+                                "PaymentSystemName": "WEBPAY (PaymentHub) ",
+                                "PaymentSystemGroupName": "PaymentHubPaymentGroup",
+                                "Name": "WEBPAY (PaymentHub)  à vista"
+                            },
+                            {
+                                "Value": 1649,
+                                "InterestRate": 0,
+                                "TotalValuePlusInterestRate": 1649,
+                                "NumberOfInstallments": 1,
+                                "PaymentSystemName": "CAT (PaymentHub) ",
+                                "PaymentSystemGroupName": "PaymentHubPaymentGroup",
+                                "Name": "CAT (PaymentHub)  à vista"
+                            }
+                        ],
+                        "DiscountHighLight": [],
+                        "GiftSkuIds": [],
+                        "Teasers": [],
+                        "BuyTogether": [],
+                        "ItemMetadataAttachment": [],
+                        "Price": 1649,
+                        "ListPrice": 1649,
+                        "PriceWithoutDiscount": 1649,
+                        "RewardValue": 0,
+                        "PriceValidUntil": "2021-05-23T18:59:41.3147556Z",
+                        "AvailableQuantity": 1999999,
+                        "Tax": 0,
+                        "DeliverySlaSamples": [
+                            {
+                                "DeliverySlaPerTypes": [],
+                                "Region": null
+                            }
+                        ],
+                        "GetInfoErrorMessage": null,
+                        "CacheVersionUsedToCallCheckout": "3fc35ed9ef9bce7764bb67e180485978_",
+                        "PaymentOptions": {
+                            "installmentOptions": [
+                                {
+                                    "paymentSystem": "201",
+                                    "bin": null,
+                                    "paymentName": "JumboOneClick",
+                                    "paymentGroupName": "custom201PaymentGroupPaymentGroup",
+                                    "value": 164900,
+                                    "installments": [
+                                        {
+                                            "count": 1,
+                                            "hasInterestRate": false,
+                                            "interestRate": 0,
+                                            "value": 164900,
+                                            "total": 164900,
+                                            "sellerMerchantInstallments": [
+                                                {
+                                                    "id": "JUMBOCHILE",
+                                                    "count": 1,
+                                                    "hasInterestRate": false,
+                                                    "interestRate": 0,
+                                                    "value": 164900,
+                                                    "total": 164900
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "paymentSystem": "202",
+                                    "bin": null,
+                                    "paymentName": "CatOneClick",
+                                    "paymentGroupName": "custom202PaymentGroupPaymentGroup",
+                                    "value": 164900,
+                                    "installments": [
+                                        {
+                                            "count": 1,
+                                            "hasInterestRate": false,
+                                            "interestRate": 0,
+                                            "value": 164900,
+                                            "total": 164900,
+                                            "sellerMerchantInstallments": [
+                                                {
+                                                    "id": "JUMBOCHILE",
+                                                    "count": 1,
+                                                    "hasInterestRate": false,
+                                                    "interestRate": 0,
+                                                    "value": 164900,
+                                                    "total": 164900
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "paymentSystem": "560101",
+                                    "bin": null,
+                                    "paymentName": "WEBPAY (PaymentHub) ",
+                                    "paymentGroupName": "PaymentHubPaymentGroup",
+                                    "value": 164900,
+                                    "installments": [
+                                        {
+                                            "count": 1,
+                                            "hasInterestRate": false,
+                                            "interestRate": 0,
+                                            "value": 164900,
+                                            "total": 164900,
+                                            "sellerMerchantInstallments": [
+                                                {
+                                                    "id": "JUMBOCHILE",
+                                                    "count": 1,
+                                                    "hasInterestRate": false,
+                                                    "interestRate": 0,
+                                                    "value": 164900,
+                                                    "total": 164900
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "paymentSystem": "560102",
+                                    "bin": null,
+                                    "paymentName": "CAT (PaymentHub) ",
+                                    "paymentGroupName": "PaymentHubPaymentGroup",
+                                    "value": 164900,
+                                    "installments": [
+                                        {
+                                            "count": 1,
+                                            "hasInterestRate": false,
+                                            "interestRate": 0,
+                                            "value": 164900,
+                                            "total": 164900,
+                                            "sellerMerchantInstallments": [
+                                                {
+                                                    "id": "JUMBOCHILE",
+                                                    "count": 1,
+                                                    "hasInterestRate": false,
+                                                    "interestRate": 0,
+                                                    "value": 164900,
+                                                    "total": 164900
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
+                            "paymentSystems": [
+                                {
+                                    "id": 201,
+                                    "name": "JumboOneClick",
+                                    "groupName": "custom201PaymentGroupPaymentGroup",
+                                    "validator": null,
+                                    "stringId": "201",
+                                    "template": "custom201PaymentGroupPaymentGroup-template",
+                                    "requiresDocument": false,
+                                    "isCustom": true,
+                                    "description": "JumboOneClick - tarjetas abiertas",
+                                    "requiresAuthentication": false,
+                                    "dueDate": "2020-05-30T18:46:08.1783027Z",
+                                    "availablePayments": null
+                                },
+                                {
+                                    "id": 202,
+                                    "name": "CatOneClick",
+                                    "groupName": "custom202PaymentGroupPaymentGroup",
+                                    "validator": null,
+                                    "stringId": "202",
+                                    "template": "custom202PaymentGroupPaymentGroup-template",
+                                    "requiresDocument": false,
+                                    "isCustom": true,
+                                    "description": "Tarjetas CAT tokenizadas en OneClick",
+                                    "requiresAuthentication": false,
+                                    "dueDate": "2020-05-30T18:46:08.1783027Z",
+                                    "availablePayments": null
+                                },
+                                {
+                                    "id": 560101,
+                                    "name": "WEBPAY (PaymentHub) ",
+                                    "groupName": "PaymentHubPaymentGroup",
+                                    "validator": null,
+                                    "stringId": "560101",
+                                    "template": "PaymentHubPaymentGroup-template",
+                                    "requiresDocument": false,
+                                    "isCustom": true,
+                                    "description": null,
+                                    "requiresAuthentication": false,
+                                    "dueDate": "2020-05-30T18:46:08.1783027Z",
+                                    "availablePayments": null
+                                },
+                                {
+                                    "id": 560102,
+                                    "name": "CAT (PaymentHub) ",
+                                    "groupName": "PaymentHubPaymentGroup",
+                                    "validator": null,
+                                    "stringId": "560102",
+                                    "template": "PaymentHubPaymentGroup-template",
+                                    "requiresDocument": false,
+                                    "isCustom": true,
+                                    "description": null,
+                                    "requiresAuthentication": false,
+                                    "dueDate": "2020-05-30T18:46:08.1783027Z",
+                                    "availablePayments": null
+                                }
+                            ],
+                            "payments": [],
+                            "giftCards": [],
+                            "giftCardMessages": [],
+                            "availableAccounts": [],
+                            "availableTokens": []
+                        }
+                    }
+                }
+            ],
+            "Videos": [],
+            "estimatedDateArrival": null
+        }
+    ]
+}

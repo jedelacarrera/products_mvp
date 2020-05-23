@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<title>Mejores precios</title>
-	<link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='index.jpeg') }}"/>
+	<link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='index.jpeg') }}" />
 	<style>
 		html {
-		    font-family: -apple-system,BlinkMacSystemFont,“Segoe UI”,Roboto,Oxygen-Sans,Ubuntu,Cantarell,“Helvetica Neue”,sans-serif;
-		    font-size: 16px;
-		    line-height: 1.5;
-		    color: hsl(0, 0%, 33%);
+			font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Oxygen-Sans, Ubuntu, Cantarell, “Helvetica Neue”, sans-serif;
+			font-size: 16px;
+			line-height: 1.5;
+			color: hsl(0, 0%, 33%);
 		}
+
 		body {
 			background-color: #f8f9fa;
 			margin-bottom: 50px;
@@ -22,20 +24,21 @@
 		}
 	</style>
 </head>
+
 <body>
 	<nav class="navbar navbar-dark bg-primary">
-  	  <a class="navbar-brand" href='/products/'>Mis productos</a>
+		<a class="navbar-brand" href='/products/'>Mis productos</a>
 	</nav>
 	<div class="container" style="margin-top: 50px">
 		{% if success %}
-			<div class="alert alert-success" role="alert">
-	  			{{success}}
-			</div>
+		<div class="alert alert-success" role="alert">
+			{{success}}
+		</div>
 		{% endif %}
 		{% if error %}
-			<div class="alert alert-warning" role="alert">
-	  			Hubo un error: {{error}}
-			</div>
+		<div class="alert alert-warning" role="alert">
+			Hubo un error: {{error}}
+		</div>
 		{% endif %}
 		<form class="row" action="/data/" method="post" enctype="multipart/form-data">
 			<div class="col-md-5">
@@ -52,11 +55,14 @@
 		<br>
 		<div>
 			<h2>Requerimientos</h2>
-			<p>Archivo CSV, archivo de texto plano en que los valores se separen por ";". En excel se puede exportar a CSV facilmente.</p>
+			<p>Archivo CSV, archivo de texto plano en que los valores se separen por ";". En excel se puede exportar a
+				CSV facilmente.</p>
 			<p>La primera linea debe contener los encabezados. Deben ser los siguientes en el orden correcto.</p>
-			<p>Código, Marca, Descripción, Proveedor, Fuente, Peso, Descripción Completa, Categoría, Subcategoría, Observación, Precio Normal, Precio Oferta, Precio Pack, URL Foto Producto.</p>
+			<p>Código, Marca, Descripción, Proveedor, Fuente, Peso, Descripción Completa, Categoría, Subcategoría,
+				Observación, Precio Normal, Precio Oferta, Precio Pack, URL Foto Producto.</p>
 			<p>No se revisa el nombre de los encabezados, pero ese debe ser el orden.</p>
-			<p>En Proveedor se permite solo los siguientes (tener cuidado con equivocarse, arrojará un error si es que hay uno):</p>
+			<p>En Proveedor se permite solo los siguientes (tener cuidado con equivocarse, arrojará un error si es que
+				hay uno):</p>
 			<ul>
 				<li>Walmart</li>
 				<li>Alvi</li>
@@ -70,19 +76,20 @@
 			</a>
 			<p style="padding: 5px;">Ideal para editar los datos que se ven actualmente</p>
 		</div>
-		
-		<br>
+
 		<br>
 
 		{% if mayorista_scrape %}
-			<div>
-				<p>Status última descarga de Central Mayorista: {{mayorista_scrape.status}}<p>
-				{% if mayorista_scrape.status == "SUCCESS" %}
-					<a href="/scrapes/central_mayorista/{{mayorista_scrape.filename}}">
-						<button type="button" class="btn btn-primary">Descargar último archivo con datos de central mayorista</button>
-					</a>
-				{% endif %}
-			</div>
+		<div>
+			<p>Status última descarga de Central Mayorista: {{mayorista_scrape.status}}</p>
+			{% if mayorista_scrape.status == "SUCCESS" %}
+			<a href="/scrapes/central_mayorista/{{mayorista_scrape.filename}}">
+				<button type="button" class="btn btn-primary">Descargar último archivo con datos de central
+					mayorista</button>
+			</a>
+			<br>
+			{% endif %}
+		</div>
 		{% endif %}
 		<div>
 			<form class="row" action="/scrapes/central_mayorista/" method="post">
@@ -93,18 +100,19 @@
 			</form>
 		</div>
 
-		<br>
-		<br>
+		<hr>
 
 		{% if caserita_scrape %}
-			<div>
-				<p>Status última descarga de La Caserita: {{caserita_scrape.status}}<p>
-				{% if caserita_scrape.status == "SUCCESS" %}
-					<a href="/scrapes/la_caserita/{{caserita_scrape.filename}}">
-						<button type="button" class="btn btn-primary">Descargar último archivo con datos de la caserita</button>
-					</a>
-				{% endif %}
-			</div>
+		<div>
+			<p>Status última descarga de La Caserita: {{caserita_scrape.status}}</p>
+			{% if caserita_scrape.status == "SUCCESS" %}
+			<a href="/scrapes/la_caserita/{{caserita_scrape.filename}}">
+				<button type="button" class="btn btn-primary">Descargar último archivo con datos de la
+					caserita</button>
+			</a>
+			<br>
+			{% endif %}
+		</div>
 		{% endif %}
 		<div>
 			<form class="row" action="/scrapes/la_caserita/" method="post">
@@ -115,18 +123,18 @@
 			</form>
 		</div>
 
-		<br>
-		<br>
+		<hr>
 
 		{% if alvi_scrape %}
-			<div>
-				<p>Status última descarga de Alvi: {{alvi_scrape.status}}<p>
-				{% if alvi_scrape.status == "SUCCESS" %}
-					<a href="/scrapes/alvi/{{alvi_scrape.filename}}">
-						<button type="button" class="btn btn-primary">Descargar último archivo con datos de Alvi</button>
-					</a>
-				{% endif %}
-			</div>
+		<div>
+			<p>Status última descarga de Alvi: {{alvi_scrape.status}}</p>
+			{% if alvi_scrape.status == "SUCCESS" %}
+			<a href="/scrapes/alvi/{{alvi_scrape.filename}}">
+				<button type="button" class="btn btn-primary">Descargar último archivo con datos de Alvi</button>
+			</a>
+			{% endif %}
+		</div>
+		<br>
 		{% endif %}
 		<div>
 			<form class="row" action="/scrapes/alvi/" method="post">
@@ -137,18 +145,18 @@
 			</form>
 		</div>
 
-		<br>
-		<br>
+		<hr>
 
 		{% if lider_scrape %}
-			<div>
-				<p>Status última descarga de Lider: {{lider_scrape.status}}<p>
-				{% if lider_scrape.status == "SUCCESS" %}
-					<a href="/scrapes/lider/{{lider_scrape.filename}}">
-						<button type="button" class="btn btn-primary">Descargar último archivo con datos de Lider</button>
-					</a>
-				{% endif %}
-			</div>
+		<div>
+			<p>Status última descarga de Lider: {{lider_scrape.status}}</p>
+			{% if lider_scrape.status == "SUCCESS" %}
+			<a href="/scrapes/lider/{{lider_scrape.filename}}">
+				<button type="button" class="btn btn-primary">Descargar último archivo con datos de Lider</button>
+			</a>
+			<br>
+			{% endif %}
+		</div>
 		{% endif %}
 		<div>
 			<form class="row" action="/scrapes/lider/" method="post">
@@ -158,7 +166,30 @@
 				<p>Demorará alrededor de 4 minutos</p>
 			</form>
 		</div>
+
+		<hr>
+
+
+		{% if jumbo_scrape %}
+		<div>
+			<p>Status última descarga de Jumbo: {{jumbo_scrape.status}}</p>
+			{% if jumbo_scrape.status == "SUCCESS" %}
+			<a href="/scrapes/jumbo/{{jumbo_scrape.filename}}">
+				<button type="button" class="btn btn-primary">Descargar último archivo con datos de Jumbo</button>
+			</a>
+			<br>
+			{% endif %}
+		</div>
+		{% endif %}
+		<div>
+			<form class="row" action="/scrapes/jumbo/" method="post">
+				<div class="col-md-4">
+					<button type="submit" class="btn btn-warning">Obtener datos de Jumbo nuevamente</button>
+				</div>
+				<p>Demorará alrededor de 12 minutos</p>
+			</form>
+		</div>
 	</div>
 </body>
-</html>
 
+</html>

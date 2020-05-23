@@ -1,14 +1,16 @@
+# coding=utf-8
 import os
 import json
+import time
 import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-# from scrapers.base_scraper import BaseScraper
-from jumbo_categories import JUMBO_CATEGORIES, REPLACE_STRINGS
+from scrapers.base_scraper import BaseScraper
+from scrapers.jumbo.jumbo_categories import JUMBO_CATEGORIES, REPLACE_STRINGS
 
 
-class JumboScraper:
+class JumboScraper(BaseScraper):
     base_url = "https://www.jumbo.cl/"
 
     def __init__(self, destination_folder="tmp/scrapes/jumbo/"):
@@ -29,16 +31,19 @@ class JumboScraper:
                 products = self._get_products_from_response(response)
                 product_count = len(products)
                 self._add_products(products)
-                print(url, len(self.products))
+                print(f"{url:60} prods: {len(self.products)}")
                 page += 1
 
         return self._save_products()
 
     def _add_products(self, products):
         for product_dict in products:
-            product = Product(product_dict)
+            product = JumboProduct(product_dict)
             if product.code in self.codes:
-                return
+                print(f"Product {product.code} ({product.name}) was already found")
+                continue
+            if not product.available:
+                continue
 
             self.products.append(product)
             self.codes.add(product.code)
@@ -65,16 +70,56 @@ class JumboScraper:
         for before, after in REPLACE_STRINGS:
             content = content.replace(before, after)
 
-        return json.loads(content)["plp"]["plp_products"]["data"]
+        try:
+            return json.loads(content)["plp"]["plp_products"]["data"]
+        except Exception as e:
+            with open("product_error.json", "w") as file:
+                file.write(content)
+                raise e
 
 
-class Product:
+class JumboProduct:
     def __init__(self, product_dict):
-        self.code = 3
-        print(product_dict)
+        item = product_dict["items"][0]
+        offer = item["sellers"][0]["commertialOffer"]
+        self.available = True
+        self.code = product_dict["productId"]
+        self.brand = product_dict["brand"]
+        self.name = product_dict["productName"]
+        self.image_url = item["images"][0]["imageUrl"]
+        self.url = product_dict["link"]
+
+        if len(product_dict["items"]) > 1:
+            print(f"Product {self.code} ({self.name}) has more than one item")
+        if len(item["sellers"]) > 1:
+            self.raise_error(product_dict, "more than one product seller")
+
+        try:
+            self.category = product_dict["categories"][-1].replace("/", "")
+            self.subcategory = product_dict["categories"][0].split("/")[1]
+        except:
+            self.raise_error(product_dict, "error with categories")
+        self.price_unit = item["measurementUnit"]
+        if not offer.get("Price") or not offer.get("PriceWithoutDiscount"):
+            print(f"No stock for product {self.name}")
+            self.available = False
+            return
+        if offer["Price"] < offer["PriceWithoutDiscount"]:
+            self.sale_price = offer["Price"]
+            self.price = offer["PriceWithoutDiscount"]
+        else:
+            self.price = offer["Price"]
+            self.sale_price = ""
+
+        # print(product_dict)
+
+    def raise_error(self, product_dict, error):
+        with open("product_error.json", "w") as file:
+            json.dump(product_dict, file, ensure_ascii=False, indent=4)
+            raise Exception(error)
 
     def __str__(self):
-        return "product"
+        return f"{self.code};{self.brand};{self.name};Jumbo;{self.url};{self.price_unit};;{self.category};{self.subcategory};;{self.price};{self.sale_price};{self.image_url}\n"
 
 
 if __name__ == "__main__":

@@ -9,8 +9,9 @@ from scrapers import (
     LaCaseritaScraper,
     AlviScraper,
     LiderScraper,
+    JumboScraper,
 )
-from constants import CentralMayorista, LaCaserita, Alvi, Walmart, Lider
+from constants import CentralMayorista, LaCaserita, Alvi, Walmart, Lider, Jumbo
 from sqlalchemy import or_
 
 # GET controllers
@@ -164,6 +165,8 @@ def scrape(provider, element):
         scraper = AlviScraper()
     elif provider == Lider.url_name:
         scraper = LiderScraper()
+    elif provider == Jumbo.url_name:
+        scraper = JumboScraper()
     else:
         raise Exception("Proveedor no disponible")
 

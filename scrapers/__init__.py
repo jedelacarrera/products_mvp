@@ -2,3 +2,4 @@ from scrapers.central_mayorista.central_mayorista_scraper import CentralMayorist
 from scrapers.la_caserita.la_caserita_scraper import LaCaseritaScraper
 from scrapers.alvi.alvi_scraper import AlviScraper
 from scrapers.lider.lider_scraper import LiderScraper
+from scrapers.jumbo.jumbo_scraper import JumboScraper

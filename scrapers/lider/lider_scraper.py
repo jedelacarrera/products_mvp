@@ -164,7 +164,7 @@ class Product:
         return f"{self.code};{self.brand};{self.name};Lider;{self.url};{self.price_unit};;{self.category};{self.subcategory};{self.condition};{self.price};{self.sale_price};{self.image_url};{self.all_info}\n"
 
 
-if __name__ == "__main__":
-    scraper = LiderScraper()
-    scraper.scrape()
-    # scraper.finish_session()
+# if __name__ == "__main__":
+#     scraper = LiderScraper()
+#     scraper.scrape()
+#     # scraper.finish_session()
