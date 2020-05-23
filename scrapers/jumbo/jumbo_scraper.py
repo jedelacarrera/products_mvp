@@ -122,6 +122,6 @@ class JumboProduct:
         return f"{self.code};{self.brand};{self.name};Jumbo;{self.url};{self.price_unit};;{self.category};{self.subcategory};;{self.price};{self.sale_price};{self.image_url}\n"
 
 
-if __name__ == "__main__":
-    scraper = JumboScraper()
-    scraper.scrape()
+# if __name__ == "__main__":
+#     scraper = JumboScraper()
+#     scraper.scrape()
