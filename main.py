@@ -93,7 +93,7 @@ def api_search_result(file):
 @app.route("/scrapes/<provider>/", methods=["POST"])
 def scrape(provider):
     element = api_controllers.new_scrape(TRANSLATIONS[provider])
-    thread = Thread(target=api_controllers.scrape, args=(provider, element))
+    thread = Thread(target=api_controllers.scrape, args=(provider, element.id))
     thread.start()
     return redirect(
         url_for("update_data", ok=f"Proceso iniciado correctamente ({provider})")

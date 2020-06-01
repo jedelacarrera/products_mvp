@@ -153,7 +153,7 @@ def new_scrape(provider_name):
     return element
 
 
-def scrape(provider, element):
+def scrape(provider, element_id):
     if provider == CentralMayorista.url_name:
         scraper = CentralMayoristaScraper()
     elif provider == LaCaserita.url_name:
@@ -167,8 +167,9 @@ def scrape(provider, element):
     else:
         raise Exception("Proveedor no disponible")
 
-    filename = scraper.scrape()
+    element = Scrape.query.get(element_id)
     try:
+        filename = scraper.scrape()
         scraper.finish_session()
 
         element.filename = filename

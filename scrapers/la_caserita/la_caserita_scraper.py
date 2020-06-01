@@ -4,43 +4,10 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from scrapers.base_scraper import BaseScraper
-
-
-class LaCaseritaCategory:
-    base_url = "https://www.caserita.cl/catalog/category/view/s/"
-
-    def __init__(self, id, name, pages):
-        self.id = id
-        self.name = name
-        self.pages = pages
-
-    @property
-    def urls(self):
-        url = f"{self.base_url}{self.name}/id/{self.id}/?product_list_limit=36&p="
-        return [url + str(page + 1) for page in range(self.pages)]
+from scrapers.la_caserita.la_caserita_constants import LA_CASERITA_CATEGORIES, COOKIES
 
 
 class LaCaseritaScraper(BaseScraper):
-    categories = [
-        LaCaseritaCategory(3, "limpieza", 5),
-        LaCaseritaCategory(4, "cuidado-personal", 4),
-        LaCaseritaCategory(5, "despensa", 5),
-        LaCaseritaCategory(6, "lacteos-y-frambres", 2),
-        LaCaseritaCategory(
-            8, "frescos-y-congelados", 3
-        ),  # Por si acaso, queda muy justo con 2
-        LaCaseritaCategory(9, "bebidas-y-licores", 3),
-        LaCaseritaCategory(10, "confites-y-cocktail", 1),
-        LaCaseritaCategory(11, "bazar", 1),
-    ]
-
-    cookies = {
-        "setea_comuna": "43",
-        "setea_entrega": "true",
-        "setea_region": "13",
-        "setea_tipo_entrega": "1",
-        "store": "8000-26-1",
-    }
 
     def __init__(self, destination_folder="tmp/scrapes/la_caserita/"):
         if destination_folder[-1] != "/":
@@ -53,17 +20,18 @@ class LaCaseritaScraper(BaseScraper):
     @property
     def urls(self):
         urls = []
-        for category in self.categories:
+        for category in LA_CASERITA_CATEGORIES:
             urls += category.urls
         return urls
 
     def scrape(self):
-        responses = [requests.get(url, cookies=self.cookies) for url in self.urls]
         category_names = []
-        for category in self.categories:
+        for category in LA_CASERITA_CATEGORIES:
             for i in range(category.pages):
                 category_names.append(category.name + "_" + str(i + 1))
-        for response, category_name in zip(responses, category_names):
+
+        for url, category_name in zip(self.urls, category_names):
+            response = requests.get(url, cookies=COOKIES)
             self.scrap_source(response.content, category_name)
         return self.save_products()
 
@@ -80,6 +48,7 @@ class LaCaseritaScraper(BaseScraper):
             except Exception as e:
                 print(e)
                 print(product.prettify())
+        print(category_name, len(self.products))
 
     def add_product(self, item, category_name):
         (
