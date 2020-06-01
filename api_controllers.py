@@ -11,7 +11,7 @@ from scrapers import (
     LiderScraper,
     JumboScraper,
 )
-from constants import CentralMayorista, LaCaserita, Alvi, Walmart, Lider, Jumbo
+from constants import CentralMayorista, LaCaserita, Alvi, Lider, Jumbo
 from sqlalchemy import or_
 
 # GET controllers
@@ -109,9 +109,6 @@ def create_offer(line):
         )
     )
 
-    # db.session.add(offer)
-    # db.session.commit()
-
 
 def handle_file(filename):
     with open(filename, "r", encoding="utf-8", errors="ignore") as file:
@@ -156,7 +153,7 @@ def new_scrape(provider_name):
     return element
 
 
-def scrape(provider, element):
+def scrape(provider, element_id):
     if provider == CentralMayorista.url_name:
         scraper = CentralMayoristaScraper()
     elif provider == LaCaserita.url_name:
@@ -170,6 +167,7 @@ def scrape(provider, element):
     else:
         raise Exception("Proveedor no disponible")
 
+    element = Scrape.query.get(element_id)
     try:
         filename = scraper.scrape()
         scraper.finish_session()

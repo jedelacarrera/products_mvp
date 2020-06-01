@@ -1,19 +1,18 @@
 from api_controllers import db, handle_file
 from models import Provider
-from constants import CentralMayorista, LaCaserita, Alvi, Walmart, Lider, Jumbo
+from constants import CentralMayorista, LaCaserita, Alvi, Lider, Jumbo
 
 
 def create_providers():
     prov1 = Provider(name=CentralMayorista.name, url="central_mayorista.jpeg")
-    prov2 = Provider(name=Walmart.name, url="walmart_m.jpeg")
-    prov3 = Provider(
+    prov2 = Provider(
         name=LaCaserita.name, url="la_caserita_m.png", description="Mayorista online"
     )
-    prov4 = Provider(name=Alvi.name, url="alvi_m.jpeg", description="Club Mayorista")
-    prov5 = Provider(name=Lider.name, url="lider.png", description="Lider")
-    prov6 = Provider(name=Jumbo.name, url="jumbo.png", description="Jumbo")
+    prov3 = Provider(name=Alvi.name, url="alvi_m.jpeg", description="Club Mayorista")
+    prov4 = Provider(name=Lider.name, url="lider.png", description="Lider")
+    prov5 = Provider(name=Jumbo.name, url="jumbo.png", description="Jumbo")
 
-    providers = [prov1, prov2, prov3, prov4, prov5, prov6]
+    providers = [prov1, prov2, prov3, prov4, prov5]
 
     for prov in providers:
         db.session.add(prov)

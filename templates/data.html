@@ -64,10 +64,11 @@
 			<p>En Proveedor se permite solo los siguientes (tener cuidado con equivocarse, arrojará un error si es que
 				hay uno):</p>
 			<ul>
-				<li>Walmart</li>
+				<li>Lider</li>
 				<li>Alvi</li>
 				<li>Central Mayorista</li>
 				<li>La Caserita</li>
+				<li>Jumbo</li>
 			</ul>
 		</div>
 		<div style="display: flex; flex-direction: row;">
@@ -119,7 +120,7 @@
 				<div class="col-md-5">
 					<button type="submit" class="btn btn-warning">Obtener datos de La Caserita nuevamente</button>
 				</div>
-				<p>Demorará alrededor de 4 minutos</p>
+				<p>Demorará alrededor de 10 minutos</p>
 			</form>
 		</div>
 
@@ -132,9 +133,9 @@
 			<a href="/scrapes/alvi/{{alvi_scrape.filename}}">
 				<button type="button" class="btn btn-primary">Descargar último archivo con datos de Alvi</button>
 			</a>
+			<br>
 			{% endif %}
 		</div>
-		<br>
 		{% endif %}
 		<div>
 			<form class="row" action="/scrapes/alvi/" method="post">
