@@ -117,4 +117,3 @@ def get_scrape_file(provider, file):
 def format_price(price):
     """1000 -> $1.000"""
     return "$" + format(price, ",d").replace(",", ".")
-

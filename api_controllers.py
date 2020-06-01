@@ -109,9 +109,6 @@ def create_offer(line):
         )
     )
 
-    # db.session.add(offer)
-    # db.session.commit()
-
 
 def handle_file(filename):
     with open(filename, "r", encoding="utf-8", errors="ignore") as file:
