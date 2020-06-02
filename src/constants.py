@@ -30,3 +30,5 @@ TRANSLATIONS = {
     Lider.url_name: Lider.name,
     Jumbo.url_name: Jumbo.name,
 }
+
+INPUT_FOLDER = "tmp"

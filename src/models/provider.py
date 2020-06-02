@@ -1,4 +1,4 @@
-from dbconfig import db
+from src.app import db
 
 
 class Provider(db.Model):

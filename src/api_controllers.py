@@ -1,9 +1,7 @@
 # pylint: disable=no-member
-from models import Product, Offer, Provider, Scrape, db
-from datetime import datetime
 import os
+from datetime import datetime
 from flask import abort
-import time
 from scrapers import (
     CentralMayoristaScraper,
     LaCaseritaScraper,
@@ -11,7 +9,8 @@ from scrapers import (
     LiderScraper,
     JumboScraper,
 )
-from constants import CentralMayorista, LaCaserita, Alvi, Lider, Jumbo
+from src.models import Product, Offer, Provider, Scrape, db
+from src.constants import CentralMayorista, LaCaserita, Alvi, Lider, Jumbo
 from sqlalchemy import or_
 
 # GET controllers
