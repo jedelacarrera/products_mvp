@@ -1,5 +1,5 @@
 import datetime
-from src.app import db
+from src.dbconfig import db
 
 STARTED = "STARTED"
 SUCCESS = "SUCCESS"

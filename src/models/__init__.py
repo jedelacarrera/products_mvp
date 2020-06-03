@@ -1,4 +1,4 @@
-from models.product import Product
-from models.provider import Provider
-from models.scrape import Scrape
-from models.offer import Offer, db
+from src.models.product import Product
+from src.models.provider import Provider
+from src.models.scrape import Scrape
+from src.models.offer import Offer, db

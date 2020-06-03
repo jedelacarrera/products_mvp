@@ -63,7 +63,7 @@ class CentralMayoristaScraper(BaseScraper):
         self.browser.close()
 
     def scrape(self):
-        self.browser.set_page_load_timeout(10)
+        self.browser.set_page_load_timeout(20)
         self.browser.get(self.url)
 
         time.sleep(1)
@@ -88,7 +88,7 @@ class CentralMayoristaScraper(BaseScraper):
         items = source.find_all("li", class_="ais-Hits-item")
         for item in items:
             try:
-                if not self.add_product(item):
+                if not self.add_product(item) and self.page > 210:
                     return False
             except Exception as e:
                 print(e)

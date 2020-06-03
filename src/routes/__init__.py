@@ -1,6 +1,6 @@
-from src.routes.data_routes import data_app
-from src.routes.products_routes import products_app
-from src.routes.scrapes_routes import scrapes_app
+from src.routes.data.routes import data_app
+from src.routes.products.routes import products_app
+from src.routes.scrapes.routes import scrapes_app
 
 
 def init_routes(app):

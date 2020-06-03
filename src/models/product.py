@@ -1,4 +1,4 @@
-from src.app import db
+from src.dbconfig import db
 import random
 
 
@@ -72,4 +72,3 @@ class Product(db.Model):
 
     def __repr__(self):
         return "<Product {id}: {description}>".format(**self.__dict__)
-

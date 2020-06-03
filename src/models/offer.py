@@ -1,4 +1,4 @@
-from src.app import db
+from src.dbconfig import db
 
 
 class Offer(db.Model):
@@ -24,4 +24,3 @@ class Offer(db.Model):
 
     def __repr__(self):
         return "<Offer {}>".format(self.id)
-
