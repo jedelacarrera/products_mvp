@@ -1,5 +1,5 @@
-from src.dbconfig import db
 import random
+from src.dbconfig import db
 
 
 class Product(db.Model):
@@ -63,7 +63,8 @@ class Product(db.Model):
         products = list(filter(lambda prod: prod.id != self.id, products))
         products = list(
             filter(
-                lambda product: len(product.offers) > 0 and product.best_price != None,
+                lambda product: len(product.offers) > 0
+                and product.best_price is not None,
                 products,
             )
         )
