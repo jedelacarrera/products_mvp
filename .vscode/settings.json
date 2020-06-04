@@ -2,7 +2,7 @@
   "editor.formatOnSave": true,
   "python.linting.pylintArgs": [
     "--load-plugins",
-    "pylint-flask"
+    "pylint_flask,pyling_flask_sqlalchemy"
   ],
   "python.pythonPath": "venv/bin/python"
 }

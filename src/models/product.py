@@ -1,5 +1,6 @@
-from dbconfig import db
 import random
+from src.dbconfig import db
+
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -12,7 +13,9 @@ class Product(db.Model):
     subcategory = db.Column(db.String(120), unique=False, nullable=True, index=True)
     url = db.Column(db.Text, unique=False, nullable=True)
 
-    offers = db.relationship('Offer', backref='product', lazy=True, cascade = "all,delete")
+    offers = db.relationship(
+        "Offer", backref="product", lazy=True, cascade="all,delete"
+    )
 
     MAX_PRICE = 1000000000
 
@@ -35,7 +38,7 @@ class Product(db.Model):
         provider = providers[prices.index(best)]
         best = int(best // 1)
 
-        return {'price': best, 'provider': provider.dict}
+        return {"price": best, "provider": provider.dict}
 
     @property
     def dict(self):
@@ -58,10 +61,15 @@ class Product(db.Model):
             return []
         products = Product.query.filter_by(subcategory=self.subcategory).limit(30).all()
         products = list(filter(lambda prod: prod.id != self.id, products))
-        products = list(filter(lambda product: len(product.offers) > 0 and product.best_price != None, products))
+        products = list(
+            filter(
+                lambda product: len(product.offers) > 0
+                and product.best_price is not None,
+                products,
+            )
+        )
         random.shuffle(products)
         return products[:3]
 
-
     def __repr__(self):
-        return '<Product {id}: {description}>'.format(**self.__dict__)
+        return "<Product {id}: {description}>".format(**self.__dict__)

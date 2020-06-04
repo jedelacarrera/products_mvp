@@ -1,15 +1,20 @@
 import datetime
-from dbconfig import db
+from src.dbconfig import db
 
-STARTED = 'STARTED'
-SUCCESS = 'SUCCESS'
-FAILURE = 'FAILURE'
+STARTED = "STARTED"
+SUCCESS = "SUCCESS"
+FAILURE = "FAILURE"
+
 
 class Scrape(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow, nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow, nullable=False)
-    provider_id = db.Column(db.Integer, db.ForeignKey('provider.id'), nullable=False)
+    created_at = db.Column(
+        db.DateTime, default=datetime.datetime.utcnow, nullable=False
+    )
+    updated_at = db.Column(
+        db.DateTime, default=datetime.datetime.utcnow, nullable=False
+    )
+    provider_id = db.Column(db.Integer, db.ForeignKey("provider.id"), nullable=False)
     status = db.Column(db.Text, default=STARTED, nullable=False)
     filename = db.Column(db.Text, nullable=True)
 
@@ -24,4 +29,4 @@ class Scrape(db.Model):
         }
 
     def __repr__(self):
-        return '<Scrape {}>'.format(self.id)
+        return "<Scrape {}>".format(self.id)

@@ -1,9 +1,10 @@
-from dbconfig import db
+from src.dbconfig import db
+
 
 class Offer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    provider_id = db.Column(db.Integer, db.ForeignKey('provider.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey("product.id"), nullable=False)
+    provider_id = db.Column(db.Integer, db.ForeignKey("provider.id"), nullable=False)
     price = db.Column(db.Integer, nullable=True)  # Precio
     sale_price = db.Column(db.Integer, nullable=True)  # Precio con descuento
     comment = db.Column(db.Text, unique=False, nullable=True)
@@ -22,4 +23,4 @@ class Offer(db.Model):
         }
 
     def __repr__(self):
-        return '<Offer {}>'.format(self.id)
+        return "<Offer {}>".format(self.id)

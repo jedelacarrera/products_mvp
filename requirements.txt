@@ -8,3 +8,4 @@ selenium==3.141.0
 SQLAlchemy==1.2.11
 pylint==2.5.2
 pylint-flask==0.6
+black==19.10b0
