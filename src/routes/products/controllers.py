@@ -1,40 +1,38 @@
 from flask import abort
-from src.models import Product
 from sqlalchemy import or_
+from src.models import Product, Provider
 
 
-def get_products(search=""):
+def get_products(search="", provider_id=0):
+    query = Product.query
     if search:
-        products = (
-            Product.query.filter(
-                or_(
-                    Product.description.ilike("%" + search + "%"),
-                    Product.brand.ilike("%" + search + "%"),
-                )
+        query = query.filter(
+            or_(
+                Product.description.ilike("%" + search + "%"),
+                Product.brand.ilike("%" + search + "%"),
             )
-            .order_by(Product.subcategory, Product.description)
-            .limit(1000)
-            .all()
         )
-    else:
-        products = (
-            Product.query.order_by(Product.subcategory, Product.description)
-            .limit(1000)
-            .all()
-        )
-    products = list(
-        filter(
-            lambda product: len(product.offers) > 0 and product.best_price != None,
-            products,
-        )
+    products = (
+        query.order_by(Product.subcategory, Product.description).limit(1000).all()
     )
+    products = list(filter(lambda prod: prod.best_price() is not None, products))
+    if provider_id:
+        products_dicts = [prod.dict_by_provider_id(provider_id) for prod in products]
+        products_dicts = list(filter(lambda prod: prod is not None, products_dicts))
+    else:
+        products_dicts = [prod.dict for prod in products]
+
     categories = {}
-    for product in products:
-        if categories.get(product.subcategory.lower()):
-            categories.get(product.subcategory.lower()).append(product.dict)
+    for product in products_dicts:
+        if categories.get(product["subcategory"].lower()):
+            categories.get(product["subcategory"].lower()).append(product)
         else:
-            categories[product.subcategory.lower()] = [product.dict]
+            categories[product["subcategory"].lower()] = [product]
     return {"categories": categories}
+
+
+def get_providers():
+    return Provider.query.all()
 
 
 def get_offers_by_product(pid):

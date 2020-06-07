@@ -1,24 +1,53 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<title>Mejores precios</title>
-	<link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='index.jpeg') }}"/>
-	<link rel="stylesheet" href="{{ url_for('static', filename='styles_v10.css') }}"/>
-</head>
-<body>
-	<nav class="navbar navbar-dark bg-primary">
-  	  <a class="navbar-brand" href='/products/'>Mis productos</a>
-	  <a class="nav-item nav-link active" href="/data/">Actualizar datos</a>
-	  <form class="form-inline" action="/products/" method="get">
-	    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" value="{{search}}" autofocus>
-	    <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
-	  </form>
-	</nav>
-	
-	{% block content %}{% endblock %}
-	
-</body>
-</html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Mejores precios</title>
+    <link
+      rel="shortcut icon"
+      type="image/ico"
+      href="{{ url_for('static', filename='index.jpeg') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles_v10.css') }}"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-primary">
+      <a class="navbar-brand" href="/products/">Mis productos</a>
+      <a class="nav-item nav-link active" href="/data/">Actualizar datos</a>
+      <form class="form-inline" action="/products/" method="get">
+        <!-- <label for="provider">Proveedor</label> -->
+        <select name="provider" class="form-control">
+          <option value="">-</option>
+          {% for provider in providers %} {% if provider.id == provider_id %}
+          <option value="{{ provider.id }}" selected
+            >{{ provider.name }}</option
+          >
+          {% else %}
+          <option value="{{ provider.id }}">{{ provider.name }}</option>
+          {% endif %} {% endfor %}
+        </select>
+        <input
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          name="search"
+          value="{{search}}"
+          autofocus
+        />
+        <button class="btn btn-success my-2 my-sm-0" type="submit">
+          Buscar
+        </button>
+      </form>
+    </nav>
 
+    {% block content %}{% endblock %}
+  </body>
+</html>

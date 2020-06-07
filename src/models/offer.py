@@ -22,5 +22,14 @@ class Offer(db.Model):
             "source": self.source,
         }
 
+    def best_price(self):
+        if self.price and self.sale_price:
+            return min(self.price, self.sale_price)
+        if self.price and not self.sale_price:
+            return self.price
+        if not self.price and self.sale_price:
+            return self.sale_price
+        return None
+
     def __repr__(self):
         return "<Offer {}>".format(self.id)
