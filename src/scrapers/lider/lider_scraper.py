@@ -2,8 +2,8 @@ from datetime import datetime
 import os
 import requests
 from bs4 import BeautifulSoup
-from scrapers.base_scraper import BaseScraper
-from scrapers.lider.lider_urls import LIDER_URLS
+from src.scrapers.base_scraper import BaseScraper
+from src.scrapers.lider.lider_urls import LIDER_URLS
 
 
 class LiderScraper(BaseScraper):
@@ -17,24 +17,7 @@ class LiderScraper(BaseScraper):
         self.products = []
         self.codes = set()
 
-    #     self.products_per_page = 1000
-    #     self.aprox_total_products = 10000
-    #     self.total_pages = self.aprox_total_products // self.products_per_page
-
-    # def scrape_original(self):  # Not possible to get categories
-    #     common_url = "https://www.lider.cl/supermercado/category/?No={0}&isNavRequest=Yes&Nrpp={1}&page={2}"
-    #     for i in range(self.total_pages):
-    #         url = common_url.format(
-    #             self.products_per_page * i, self.products_per_page, i + 1
-    #         )
-    #         response = requests.get(url)
-    #         self.scrap_source(response.content, None)
-    #         print(url, ". Products: ", len(self.products))
-
-    #     return self.save_products()
-
     def scrape(self):
-        # By categories, if lider changes or adds categories, it will fail
         for lider_url in LIDER_URLS:
             response = requests.get(lider_url.url)
             self.scrap_source(response.content, lider_url)

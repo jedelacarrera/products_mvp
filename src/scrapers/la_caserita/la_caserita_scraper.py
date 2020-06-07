@@ -3,12 +3,14 @@ from datetime import datetime
 import os
 import requests
 from bs4 import BeautifulSoup
-from scrapers.base_scraper import BaseScraper
-from scrapers.la_caserita.la_caserita_constants import LA_CASERITA_CATEGORIES, COOKIES
+from src.scrapers.base_scraper import BaseScraper
+from src.scrapers.la_caserita.la_caserita_constants import (
+    LA_CASERITA_CATEGORIES,
+    COOKIES,
+)
 
 
 class LaCaseritaScraper(BaseScraper):
-
     def __init__(self, destination_folder="tmp/scrapes/la_caserita/"):
         if destination_folder[-1] != "/":
             destination_folder += "/"

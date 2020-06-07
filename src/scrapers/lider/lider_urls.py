@@ -1,15 +1,17 @@
 class LiderUrl:
-	def __init__(self, category, subcategory, url):
-		self.category = category
-		self.subcategory = subcategory
-		self.url = url + '?No=0&isNavRequest=Yes&Nrpp=1000&page=1'
+    def __init__(self, category, subcategory, url):
+        self.category = category
+        self.subcategory = subcategory
+        self.url = url + "?No=0&isNavRequest=Yes&Nrpp=1000&page=1"
 
-	def __repr__(self):
-		return '/'.join(self.url.split('/')[5:7])
+    def __repr__(self):
+        return "/".join(self.url.split("/")[5:7])
 
-	def __str__(self):
-		return '/'.join(self.url.split('/')[5:7])
+    def __str__(self):
+        return "/".join(self.url.split("/")[5:7])
 
+
+# fmt: off
 info = [
 	['Carnes y Pescados', 'vacuno', 'https://www.lider.cl/supermercado/category/Carnes-y-Pescados/Vacuno/_/N-1gleruj'],
 	['Carnes y Pescados', 'pollo', 'https://www.lider.cl/supermercado/category/Carnes-y-Pescados/Pollo/_/N-8fisy4'],
@@ -86,7 +88,10 @@ info = [
 	['perfumeria y salud', 'belleza', 'https://www.lider.cl/supermercado/category/Perfumer%C3%ADa-Salud/Belleza/_/N-u9xnwa'],
 	['perfumeria y salud', 'salud', 'https://www.lider.cl/supermercado/category/Perfumer%C3%ADa-Salud/Salud/_/N-7nnagl'],
 ]
+# fmt: on
 
 LIDER_URLS = [
-	LiderUrl(elem[0], elem[1], elem[2]) for elem in info if len(elem) == 3 and elem[2] != ''
+    LiderUrl(elem[0], elem[1], elem[2])
+    for elem in info
+    if len(elem) == 3 and elem[2] != ""
 ]

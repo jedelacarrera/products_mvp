@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from scrapers.base_scraper import BaseScraper
+from src.scrapers.base_scraper import BaseScraper
 
 
 class CentralMayoristaScraper(BaseScraper):

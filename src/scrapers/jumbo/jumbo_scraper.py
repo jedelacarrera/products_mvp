@@ -6,8 +6,8 @@ import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-from scrapers.base_scraper import BaseScraper
-from scrapers.jumbo.jumbo_categories import JUMBO_CATEGORIES, REPLACE_STRINGS
+from src.scrapers.base_scraper import BaseScraper
+from src.scrapers.jumbo.jumbo_categories import JUMBO_CATEGORIES, REPLACE_STRINGS
 
 
 class JumboScraper(BaseScraper):
