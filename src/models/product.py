@@ -17,28 +17,33 @@ class Product(db.Model):
         "Offer", backref="product", lazy=True, cascade="all,delete"
     )
 
-    MAX_PRICE = 1000000000
-
-    @property
     def best_price(self):
-        best = Product.MAX_PRICE
-        prices = []
-        providers = []
+        best = 1000000000
+        provider = None
         for offer in self.offers:
-            if offer.price:
-                prices.append(offer.price)
-                providers.append(offer.provider)
-            if offer.sale_price:
-                prices.append(offer.sale_price)
-                providers.append(offer.provider)
-        if len(prices) == 0:
+            offer_best_price = offer.best_price()
+            if offer_best_price is not None and offer_best_price < best:
+                best = offer_best_price
+                provider = offer.provider
+        if provider is None:
             return None
 
-        best = min(prices)
-        provider = providers[prices.index(best)]
-        best = int(best // 1)
-
         return {"price": best, "provider": provider.dict}
+
+    def dict_by_provider_id(self, provider_id):
+        for offer in self.offers:
+            if offer.provider_id != provider_id:
+                continue
+            offer_price = offer.best_price()
+            if offer_price is None:
+                continue
+            product_dict = self.dict
+            product_dict["best_price"] = {
+                "price": offer_price,
+                "provider": offer.provider.dict,
+            }
+            return product_dict
+        return None
 
     @property
     def dict(self):
@@ -52,7 +57,7 @@ class Product(db.Model):
             "category": self.category,
             "subcategory": self.subcategory,
             "url": self.url,
-            "best_price": self.best_price,
+            "best_price": self.best_price(),
         }
 
     @property
@@ -64,7 +69,7 @@ class Product(db.Model):
         products = list(
             filter(
                 lambda product: len(product.offers) > 0
-                and product.best_price is not None,
+                and product.best_price() is not None,
                 products,
             )
         )

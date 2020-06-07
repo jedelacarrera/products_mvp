@@ -25,4 +25,4 @@ class Provider(db.Model):
         }
 
     def __repr__(self):
-        return "<Provider {}>".format(self.name)
+        return "<Provider {}: {}>".format(self.id, self.name)
