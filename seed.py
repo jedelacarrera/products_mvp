@@ -1,6 +1,6 @@
-from api_controllers import db, handle_file
-from models import Provider
-from constants import CentralMayorista, LaCaserita, Alvi, Lider, Jumbo
+from src.routes.data.controllers import db, handle_file
+from src.models import Provider
+from src.constants import CentralMayorista, LaCaserita, Alvi, Lider, Jumbo
 
 
 def create_providers():

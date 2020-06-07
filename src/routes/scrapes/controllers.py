@@ -1,6 +1,6 @@
 # pylint: disable=no-member
 from datetime import datetime
-from scrapers import (
+from src.scrapers import (
     CentralMayoristaScraper,
     LaCaseritaScraper,
     AlviScraper,

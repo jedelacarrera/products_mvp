@@ -8,16 +8,16 @@ POSTGRES_URL = os.getenv("PG_URL")
 POSTGRES_PW = os.getenv("PG_PW")
 POSTGRES_DB = os.getenv("PG_DB_EV")
 
-DB_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # DB URL
-if not DB_URL:
-    DB_URL = "postgresql+psycopg2://{user}:{pw}@{url}/{db}".format(
+if not DATABASE_URL:
+    DATABASE_URL = "postgresql+psycopg2://{user}:{pw}@{url}/{db}".format(
         user=POSTGRES_USER, pw=POSTGRES_PW, url=POSTGRES_URL, db=POSTGRES_DB
     )
 
 # SQLAlchemy configuration
-app.config["SQLALCHEMY_DATABASE_URI"] = DB_URL
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False  # silence deprecation warning
 
 db = SQLAlchemy(app)
