@@ -3,6 +3,7 @@ import time
 from threading import Thread
 from flask import (
     Blueprint,
+    abort,
     request,
     render_template,
     send_from_directory,
@@ -26,7 +27,7 @@ def update_data():
         thread = Thread(target=controllers.update_data, args=(filename,))
         thread.start()
         return redirect(
-            url_for("data.update_data", ok="Actualición iniciada correctamente")
+            url_for("data.update_data", ok="Actualización iniciada correctamente")
         )
 
     return render_template(
