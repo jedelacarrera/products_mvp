@@ -24,7 +24,7 @@
       <form class="form-inline" action="/products/" method="get">
         <!-- <label for="provider">Proveedor</label> -->
         <select name="provider" class="form-control">
-          <option value="">-</option>
+          <option value="">-- Cadena --</option>
           {% for provider in providers %} {% if provider.id == provider_id %}
           <option value="{{ provider.id }}" selected
             >{{ provider.name }}</option
