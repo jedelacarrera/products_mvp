@@ -14,20 +14,27 @@
     />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='styles_v10.css') }}"
+      href="{{ url_for('static', filename='styles_v1.css') }}"
     />
   </head>
   <body>
-    <nav class="navbar navbar-dark bg-primary">
+    <nav class="navbar navbar-dark bg-primary fixed-top">
       <a class="navbar-brand" href="/products/">Mis productos</a>
       <a class="nav-item nav-link active" href="/data/">Actualizar datos</a>
     </nav>
     <div
-      class="mt-2 ml-4 d-flex form-container"
-      style="justify-content: center;"
+      class="d-flex form-container fixed-top"
+      style="
+        justify-content: center;
+        top: 50px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 200px;
+        padding-right: 200px;
+        background-color: #f8f9fa;
+      "
     >
       <form class="form-inline" action="/products/" method="get">
-        <!-- <label for="provider">Proveedor</label> -->
         <label for="sales_only" class="mr-2">Solo Ofertas</label>
         {% if sales_only %}
         <input type="checkbox" class="form-control" name="sales_only" checked />
