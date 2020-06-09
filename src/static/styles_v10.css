@@ -21,9 +21,8 @@ h4 {
   color: #333;
 }
 
-select.form-control {
-  margin-right: 20px;
-  margin-left: 10px;
+.form-container {
+  justify-content: center;
 }
 
 .a-card,
