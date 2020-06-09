@@ -14,33 +14,35 @@ class Product(db.Model):
     url = db.Column(db.Text, unique=False, nullable=True)
 
     offers = db.relationship(
-        "Offer", backref="product", lazy=True, cascade="all,delete"
+        "Offer", backref="product", lazy=False, cascade="all,delete"
     )
 
     def best_price(self):
         best = 1000000000
         provider = None
+        is_sale = False
         for offer in self.offers:
-            offer_best_price = offer.best_price()
+            offer_best_price, is_sale = offer.best_price()
             if offer_best_price is not None and offer_best_price < best:
                 best = offer_best_price
                 provider = offer.provider
         if provider is None:
             return None
 
-        return {"price": best, "provider": provider.dict}
+        return {"price": best, "provider": provider.dict, "is_sale": is_sale}
 
     def dict_by_provider_id(self, provider_id):
         for offer in self.offers:
             if offer.provider_id != provider_id:
                 continue
-            offer_price = offer.best_price()
+            offer_price, is_sale = offer.best_price()
             if offer_price is None:
                 continue
             product_dict = self.dict
             product_dict["best_price"] = {
                 "price": offer_price,
                 "provider": offer.provider.dict,
+                "is_sale": is_sale,
             }
             return product_dict
         return None

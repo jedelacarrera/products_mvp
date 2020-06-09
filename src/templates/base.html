@@ -21,10 +21,21 @@
     <nav class="navbar navbar-dark bg-primary">
       <a class="navbar-brand" href="/products/">Mis productos</a>
       <a class="nav-item nav-link active" href="/data/">Actualizar datos</a>
+    </nav>
+    <div
+      class="mt-2 ml-4 d-flex form-container"
+      style="justify-content: center;"
+    >
       <form class="form-inline" action="/products/" method="get">
         <!-- <label for="provider">Proveedor</label> -->
-        <select name="provider" class="form-control">
-          <option value="">-- Cadena --</option>
+        <label for="sales_only" class="mr-2">Solo Ofertas</label>
+        {% if sales_only %}
+        <input type="checkbox" class="form-control" name="sales_only" checked />
+        {% else %}
+        <input type="checkbox" class="form-control" name="sales_only" />
+        {% endif %}
+        <select name="provider" class="form-control mx-4">
+          <option value="">-- Todos --</option>
           {% for provider in providers %} {% if provider.id == provider_id %}
           <option value="{{ provider.id }}" selected
             >{{ provider.name }}</option
@@ -46,7 +57,7 @@
           Buscar
         </button>
       </form>
-    </nav>
+    </div>
 
     {% block content %}{% endblock %}
   </body>

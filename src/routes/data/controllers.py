@@ -51,11 +51,12 @@ def handle_file(filename):
         for index, line in enumerate(file.readlines()):
             try:
                 create_offer(line)
-            except Exception as error:
-                # raise error
+            except Exception as error:  # pylint: disable=broad-except
+                db.session.rollback()
                 return f"Line {index + 2}: {str(error)}"
 
     db.session.commit()
+    return "No errors"
 
 
 def update_data(filename):
@@ -68,7 +69,6 @@ def update_data(filename):
     result = handle_file(filename)
     print("File handled")
     print(result)
-    return result
 
 
 def get_last_scrape(provider_name):

@@ -3,13 +3,16 @@ from sqlalchemy import or_
 from src.models import Product, Provider
 
 
-def get_products(search="", provider_id=0):
+def get_products(search="", provider_id=0, sales_only=False):
     query = Product.query
     if search:
         query = query.filter(
             or_(
                 Product.description.ilike("%" + search + "%"),
+                Product.complete_description.ilike("%" + search + "%"),
                 Product.brand.ilike("%" + search + "%"),
+                Product.category.ilike("%" + search + "%"),
+                Product.subcategory.ilike("%" + search + "%"),
             )
         )
     products = (
@@ -21,6 +24,11 @@ def get_products(search="", provider_id=0):
         products_dicts = list(filter(lambda prod: prod is not None, products_dicts))
     else:
         products_dicts = [prod.dict for prod in products]
+
+    if sales_only:
+        products_dicts = list(
+            filter(lambda prod: prod["best_price"]["is_sale"], products_dicts)
+        )
 
     categories = {}
     for product in products_dicts:
