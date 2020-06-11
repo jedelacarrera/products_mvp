@@ -15,9 +15,15 @@
         <h3 class="card-title">{{ product.description }}</h3>
         <p class="card-quantity">{{ product.quantity }}</p>
         <div class="best-price">
+          {% if product.best_price.is_sale %}
+          <p class="card-text price" style="color: red;">
+            {{ product.best_price.price|format_price }}
+          </p>
+          {% else %}
           <p class="card-text price">
             {{ product.best_price.price|format_price }}
           </p>
+          {% endif %}
           <img
             src="{{ url_for('static', filename=product.best_price.provider.url) }}"
           />
