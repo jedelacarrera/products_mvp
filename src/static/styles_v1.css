@@ -22,8 +22,39 @@ h4 {
   color: #333;
 }
 
-.form-container {
+.search-form-container {
   justify-content: center;
+  justify-content: center;
+  top: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #f8f9fa;
+}
+
+@media screen and (max-width: 1000px) {
+  .big-checkbox {
+    transform: scale(2);
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    margin-left: 10px;
+  }
+  .search-form-container {
+    background-color: lightblue;
+    size: 1.5em;
+    font-size: 1.5em;
+  }
+  .search-form-container input {
+    font-size: 1.2em;
+  }
+  .search-form-container button {
+    font-size: 1.2em;
+  }
+  .search-form-container select {
+    font-size: 1.2em;
+    width: 200px;
+  }
 }
 
 .a-card,

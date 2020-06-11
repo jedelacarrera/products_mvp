@@ -22,24 +22,15 @@
       <a class="navbar-brand" href="/products/">Mis productos</a>
       <a class="nav-item nav-link active" href="/data/">Actualizar datos</a>
     </nav>
-    <div
-      class="d-flex form-container fixed-top"
-      style="
-        justify-content: center;
-        top: 50px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        background-color: #f8f9fa;
-      "
-    >
+    <div class="d-flex fixed-top search-form-container">
       <form class="form-inline" action="/products/" method="get">
         <label for="sales_only" class="mr-2">Solo Ofertas</label>
         {% if sales_only %}
-        <input type="checkbox" class="form-control" name="sales_only" checked />
+        <input type="checkbox" class="big-checkbox" name="sales_only" checked />
         {% else %}
-        <input type="checkbox" class="form-control" name="sales_only" />
+        <input type="checkbox" class="big-checkbox" name="sales_only" />
         {% endif %}
-        <select name="provider" class="form-control mx-4">
+        <select name="provider" class="mx-4">
           <option value="">-- Todos --</option>
           {% for provider in providers %} {% if provider.id == provider_id %}
           <option value="{{ provider.id }}" selected
