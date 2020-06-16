@@ -39,6 +39,7 @@ h4 {
     -webkit-transform: scale(2); /* Safari and Chrome */
     -o-transform: scale(2); /* Opera */
     margin-left: 10px;
+    margin-right: 10px;
   }
   .search-form-container {
     background-color: lightblue;
@@ -47,13 +48,22 @@ h4 {
   }
   .search-form-container input {
     font-size: 1.2em;
+    margin-top: 10px !important;
   }
   .search-form-container button {
     font-size: 1.2em;
+    margin-top: 12px !important;
   }
   .search-form-container select {
     font-size: 1.2em;
-    width: 200px;
+    width: 250px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  form {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    line-height: 40px;
   }
 }
 

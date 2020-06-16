@@ -1,9 +1,9 @@
 from flask import abort
 from sqlalchemy import or_
-from src.models import Product, Provider
+from src.models import db, Product, Provider
 
 
-def get_products(search="", provider_id=0, sales_only=False):
+def get_products(search="", provider_id=0, sales_only=False, category=""):
     query = Product.query
     if search:
         query = query.filter(
@@ -15,6 +15,8 @@ def get_products(search="", provider_id=0, sales_only=False):
                 Product.subcategory.ilike("%" + search + "%"),
             )
         )
+    if category:
+        query = query.filter(Product.category.like(category))
     products = (
         query.order_by(Product.subcategory, Product.description).limit(1000).all()
     )
@@ -52,3 +54,8 @@ def get_offers_by_product(pid):
         "product": product.dict,
         "similar_products": [prod.dict for prod in product.similar_products],
     }
+
+
+def get_category_list():
+    results = db.engine.execute("SELECT distinct product.category from product")
+    return [result[0] for result in results]

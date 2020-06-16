@@ -1,5 +1,4 @@
 from datetime import datetime
-import os
 import requests
 from bs4 import BeautifulSoup
 from src.scrapers.base_scraper import BaseScraper
@@ -121,17 +120,17 @@ class Product:
         image_url,
         code,
         condition="",
-        all_info="",
+        _all_info="",
         url="",
         lider_url=None,
     ):
         super(Product, self).__init__()
         self.name = name
         self.brand = brand
-        self.price = price.split(",")[0] if type(price) == str else int(price // 1)
+        self.price = price.split(",")[0] if isinstance(price, str) else int(price // 1)
         self.sale_price = (
             sale_price.split(",")[0]
-            if type(sale_price) == str
+            if isinstance(sale_price, str)
             else int(sale_price // 1)
         )
         self.price_unit = price_unit
