@@ -1,10 +1,7 @@
 # coding=utf-8
-import os
 import json
-import time
-import requests
 from datetime import datetime
-from bs4 import BeautifulSoup
+import requests
 
 from src.scrapers.base_scraper import BaseScraper
 from src.scrapers.jumbo.jumbo_categories import JUMBO_CATEGORIES, REPLACE_STRINGS
@@ -54,7 +51,7 @@ class JumboScraper(BaseScraper):
         filename = date + ".csv"
         with open(self.destination_folder + filename, "w") as file:
             file.write(
-                "Código;Marca;Descripción;Proveedor;Fuente;Peso;Descripción Completa;Categoría;Subcategoría;Observación;Normal;Oferta;URL Foto Producto\n"
+                "Código;Marca;Descripción;Proveedor;Fuente;Peso;Descripción Completa;Categoría;Subcategoría;Observación;Normal;Oferta;URL Foto Producto\n"  # pylint: disable=line-too-long
             )
             for product in self.products:
                 file.write(str(product))
@@ -72,10 +69,10 @@ class JumboScraper(BaseScraper):
 
         try:
             return json.loads(content)["plp"]["plp_products"]["data"]
-        except Exception as e:
+        except Exception as error:  # pylint: disable=broad-except
             with open("product_error.json", "w") as file:
                 file.write(content)
-                raise e
+                raise error
 
 
 class JumboProduct:
@@ -97,7 +94,7 @@ class JumboProduct:
         try:
             self.category = product_dict["categories"][-1].replace("/", "")
             self.subcategory = product_dict["categories"][0].split("/")[1]
-        except:
+        except:  # pylint: disable=bare-except
             self.raise_error(product_dict, "error with categories")
         self.price_unit = item["measurementUnit"]
         if not offer.get("Price") or not offer.get("PriceWithoutDiscount"):

@@ -30,8 +30,17 @@
         {% else %}
         <input type="checkbox" class="big-checkbox" name="sales_only" />
         {% endif %}
-        <select name="provider" class="mx-4">
-          <option value="">-- Todos --</option>
+        <select name="category" class="ml-2">
+          <option value="">-- Categorías --</option>
+          {% for category in category_list %} {% if category ==
+          selected_category %}
+          <option value="{{ category }}" selected>{{ category }}</option>
+          {% else %}
+          <option value="{{ category }}">{{ category }}</option>
+          {% endif %} {% endfor %}
+        </select>
+        <select name="provider" class="mx-2">
+          <option value="">-- Proveedores --</option>
           {% for provider in providers %} {% if provider.id == provider_id %}
           <option value="{{ provider.id }}" selected
             >{{ provider.name }}</option
