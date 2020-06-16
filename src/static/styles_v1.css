@@ -32,6 +32,9 @@ h4 {
 }
 
 @media screen and (max-width: 1000px) {
+  body {
+    padding-top: 200px;
+  }
   .big-checkbox {
     transform: scale(2);
     -ms-transform: scale(2); /* IE */
