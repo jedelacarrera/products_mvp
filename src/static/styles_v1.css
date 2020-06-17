@@ -47,19 +47,19 @@ h4 {
   .search-form-container {
     background-color: lightblue;
     size: 1.5em;
-    font-size: 1.5em;
+    font-size: 1.7em;
   }
   .search-form-container input {
-    font-size: 1.2em;
+    font-size: 1.4em;
     margin-top: 10px !important;
   }
   .search-form-container button {
-    font-size: 1.2em;
+    font-size: 1.4em;
     margin-top: 12px !important;
   }
   .search-form-container select {
-    font-size: 1.2em;
-    width: 250px;
+    font-size: 1.4em;
+    width: 350px;
     margin-left: 20px;
     margin-right: 20px;
   }
