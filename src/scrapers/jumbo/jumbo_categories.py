@@ -40,4 +40,5 @@ REPLACE_STRINGS = [
     ('[\\"', '["'),
     ('\\"]', '"]'),
     ('primavera chilena",', 'primavera chilena\\",'),
+    ('Me divierto",', 'Me divierto\\",'),
 ]
